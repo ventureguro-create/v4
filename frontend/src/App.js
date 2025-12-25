@@ -5574,18 +5574,49 @@ const HeroSection = ({ heroSettings }) => {
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
-              <button className="group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all flex items-center gap-2">
-                {t('hero.cta')}
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </button>
-              <button 
-                onClick={() => setShowNFTModal(true)}
-                className="px-8 py-4 bg-white text-gray-900 font-semibold rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all"
-              >
-                {t('hero.buyNft')}
-              </button>
+              {heroButtons.map((button) => {
+                const label = language === 'ru' ? button.label_ru : button.label_en;
+                const isPrimary = button.style === 'primary';
+                const isNFTButton = button.url === '#nft' || label.toLowerCase().includes('nft');
+                
+                if (isNFTButton) {
+                  return (
+                    <button 
+                      key={button.id}
+                      onClick={() => setShowNFTModal(true)}
+                      className={isPrimary 
+                        ? "group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all flex items-center gap-2"
+                        : "px-8 py-4 bg-white text-gray-900 font-semibold rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all"
+                      }
+                    >
+                      {label}
+                      {isPrimary && (
+                        <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      )}
+                    </button>
+                  );
+                }
+                
+                return (
+                  <a 
+                    key={button.id}
+                    href={button.url}
+                    className={isPrimary 
+                      ? "group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all flex items-center gap-2"
+                      : "px-8 py-4 bg-white text-gray-900 font-semibold rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all inline-block"
+                    }
+                  >
+                    {label}
+                    {isPrimary && (
+                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    )}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="flex flex-wrap gap-8">

@@ -5631,32 +5631,6 @@ const AboutSection = () => {
 const PlatformOverview = ({ platformSettings }) => {
   const { language } = useLanguage();
   const langSuffix = `_${language}`;
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [p2pDeals, setP2pDeals] = useState([]);
-  const [arenaPredictions, setArenaPredictions] = useState([]);
-  const [influenceEntities, setInfluenceEntities] = useState([]);
-  const [earlylandOpportunities, setEarlylandOpportunities] = useState([]);
-  
-  // Fetch data for all tabs
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [p2p, arena, influence, earlyland] = await Promise.all([
-          axios.get(`${API}/p2p-deals`),
-          axios.get(`${API}/arena-predictions`),
-          axios.get(`${API}/influence-entities`),
-          axios.get(`${API}/earlyland-opportunities`)
-        ]);
-        setP2pDeals(p2p.data);
-        setArenaPredictions(arena.data);
-        setInfluenceEntities(influence.data);
-        setEarlylandOpportunities(earlyland.data);
-      } catch (error) {
-        console.error('Error fetching platform data:', error);
-      }
-    };
-    fetchData();
-  }, []);
   
   // Default values if no settings from API
   const defaults = {

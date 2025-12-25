@@ -6238,50 +6238,96 @@ const PlatformOverview = ({ platformSettings }) => {
 
             {/* EarlyLand Tab */}
             {activeTab === 'earlyland' && (
-              <div className="earlyland-content">
-                <div className="earlyland-header">
-                  <h3 className="text-xl font-bold mb-2">EarlyLand</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {language === 'ru' 
-                      ? 'Откройте для себя ранние Web3 возможности' 
-                      : 'Discover early Web3 opportunities'}
-                  </p>
+              <div className="earlyland-section">
+                {/* EarlyLand Header */}
+                <div className="earlyland-header-block">
+                  <div className="earlyland-title-group">
+                    <h3 className="section-title">
+                      <span className="title-icon">⚡</span> EarlyLand
+                    </h3>
+                    <p className="section-subtitle">
+                      {language === 'ru' 
+                        ? 'Ранние Web3 возможности: Airdrop, Testnet, Quests' 
+                        : 'Early Web3 opportunities: Airdrop, Testnet, Quests'}
+                    </p>
+                  </div>
+                  <div className="earlyland-filters">
+                    <button className="filter-btn active">{language === 'ru' ? 'Все' : 'All'}</button>
+                    <button className="filter-btn">Airdrop</button>
+                    <button className="filter-btn">Testnet</button>
+                    <button className="filter-btn">Quests</button>
+                    <button className="filter-btn">Whitelist</button>
+                  </div>
                 </div>
-                <div className="earlyland-opportunities-grid">
-                  {earlylandOpportunities.slice(0, 9).map((opp) => (
-                    <div key={opp.id} className="earlyland-opportunity-card">
-                      <div className="opp-badges">
-                        <span className="opp-category">{opp.category}</span>
-                        {opp.is_new && <span className="opp-new">NEW</span>}
-                        {opp.is_most_hyped && <span className="opp-hyped">🔥 Most Hyped</span>}
+
+                {/* EarlyLand Grid */}
+                <div className="earlyland-grid">
+                  {earlylandOpportunities.length > 0 ? earlylandOpportunities.slice(0, 9).map((opp) => (
+                    <div key={opp.id} className="earlyland-card">
+                      <div className="earlyland-card-header">
+                        <div className="card-badges">
+                          <span className={`category-badge ${opp.category.toLowerCase()}`}>
+                            {opp.category}
+                          </span>
+                          {opp.is_new && <span className="new-badge">NEW</span>}
+                          {opp.is_most_hyped && <span className="hyped-badge">🔥 Hyped</span>}
+                        </div>
                       </div>
-                      <div className="opp-body">
-                        <h4 className="opp-title">{opp.title}</h4>
-                        {opp.subtitle && <p className="opp-subtitle">{opp.subtitle}</p>}
-                        <div className="opp-tags">
+                      
+                      <div className="earlyland-card-body">
+                        <div className="project-info">
+                          <div className="project-logo-placeholder">
+                            {opp.title.charAt(0).toUpperCase()}
+                          </div>
+                          <div className="project-details">
+                            <h4 className="project-title">{opp.title}</h4>
+                            {opp.subtitle && <p className="project-subtitle">{opp.subtitle}</p>}
+                          </div>
+                        </div>
+
+                        <div className="opportunity-tags">
                           <span className="opp-tag">{opp.type_tag}</span>
                         </div>
-                        <div className="opp-details">
-                          <div className="opp-difficulty difficulty-{opp.difficulty.toLowerCase()}">
-                            {language === 'ru' ? 'Сложность' : 'Difficulty'}: {opp.difficulty}
+
+                        <div className="opportunity-stats">
+                          <div className="stat-item">
+                            <div className="stat-icon">🎯</div>
+                            <div className="stat-content">
+                              <div className="stat-label">{language === 'ru' ? 'Сложность' : 'Difficulty'}</div>
+                              <div className={`stat-value difficulty-${opp.difficulty.toLowerCase()}`}>
+                                {opp.difficulty}
+                              </div>
+                            </div>
                           </div>
-                          <div className="opp-reward">
-                            {language === 'ru' ? 'Награда' : 'Reward'}: {opp.reward}
-                          </div>
-                          <div className="opp-end-date">
-                            {language === 'ru' ? 'До' : 'Ends'}: {new Date(opp.end_date).toLocaleDateString()}
+                          <div className="stat-item">
+                            <div className="stat-icon">💎</div>
+                            <div className="stat-content">
+                              <div className="stat-label">{language === 'ru' ? 'Награда' : 'Reward'}</div>
+                              <div className="stat-value">{opp.reward}</div>
+                            </div>
                           </div>
                         </div>
-                        <button className="opp-details-btn">{language === 'ru' ? 'Детали' : 'Details'}</button>
+
+                        <div className="opportunity-footer">
+                          <div className="footer-info">
+                            <span className="footer-icon">⏰</span>
+                            <span className="footer-text">
+                              {language === 'ru' ? 'До' : 'Ends'}: {new Date(opp.end_date).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <button className="participate-btn">
+                            {language === 'ru' ? 'Участвовать' : 'Participate'} →
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="empty-earlyland">
+                      <div className="empty-icon">⚡</div>
+                      <p>{language === 'ru' ? 'Нет доступных возможностей' : 'No opportunities available'}</p>
+                    </div>
+                  )}
                 </div>
-                {earlylandOpportunities.length === 0 && (
-                  <div className="empty-state">
-                    <p>{language === 'ru' ? 'Нет доступных возможностей' : 'No opportunities available'}</p>
-                  </div>
-                )}
               </div>
             )}
 

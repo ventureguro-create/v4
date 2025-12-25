@@ -5916,6 +5916,223 @@ const PlatformOverview = ({ platformSettings }) => {
                 </div>
               ))}
             </div>
+              </>
+            )}
+
+            {/* OTC P2P Market Tab */}
+            {activeTab === 'otc-p2p' && (
+              <div className="p2p-market-content">
+                <div className="p2p-header">
+                  <h3 className="text-xl font-bold mb-2">{language === 'ru' ? 'P2P Маркетплейс' : 'P2P Marketplace'}</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {language === 'ru' 
+                      ? 'Торгуйте криптовалютой напрямую с другими пользователями' 
+                      : 'Trade crypto directly with other users'}
+                  </p>
+                </div>
+                <div className="p2p-deals-grid">
+                  {p2pDeals.slice(0, 6).map((deal) => (
+                    <div key={deal.id} className="p2p-deal-card">
+                      <div className="deal-header">
+                        <span className="deal-type">{deal.deal_type === 'buy' ? (language === 'ru' ? 'Покупка' : 'Buy') : (language === 'ru' ? 'Продажа' : 'Sell')}</span>
+                        <span className="deal-crypto">{deal.crypto_type}</span>
+                      </div>
+                      <div className="deal-body">
+                        <div className="deal-user">
+                          <div className="user-avatar">{deal.user_name.charAt(0)}</div>
+                          <div>
+                            <div className="user-name">{deal.user_name}</div>
+                            <div className="user-wallet">{deal.wallet_address}</div>
+                          </div>
+                        </div>
+                        <div className="deal-details">
+                          <div className="deal-price">
+                            <span className="label">{language === 'ru' ? 'Цена' : 'Price'}:</span>
+                            <span className="value">{deal.price} UAH</span>
+                          </div>
+                          <div className="deal-amount">
+                            <span className="label">{language === 'ru' ? 'Сумма' : 'Amount'}:</span>
+                            <span className="value">{deal.amount}</span>
+                          </div>
+                          <div className="deal-payment">
+                            <span className="label">{language === 'ru' ? 'Оплата' : 'Payment'}:</span>
+                            <span className="value">{deal.payment_method}</span>
+                          </div>
+                        </div>
+                        <div className="deal-footer">
+                          <span className="deal-risk risk-{deal.risk_level}">{language === 'ru' ? 'Риск' : 'Risk'}: {deal.risk_level}</span>
+                          <button className="deal-btn">{language === 'ru' ? 'Детали' : 'Details'}</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {p2pDeals.length === 0 && (
+                  <div className="empty-state">
+                    <p>{language === 'ru' ? 'Нет доступных сделок' : 'No deals available'}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Arena Predictions Tab */}
+            {activeTab === 'arena' && (
+              <div className="arena-content">
+                <div className="arena-header">
+                  <h3 className="text-xl font-bold mb-2">FOMO Arena</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {language === 'ru' 
+                      ? 'Предсказывайте исходы TGE и крипто-событий' 
+                      : 'Predict TGE outcomes and crypto events'}
+                  </p>
+                </div>
+                <div className="arena-predictions-grid">
+                  {arenaPredictions.slice(0, 6).map((pred) => (
+                    <div key={pred.id} className="arena-prediction-card">
+                      <div className="pred-header">
+                        <span className="pred-category">{pred.category}</span>
+                        {pred.is_featured && <span className="pred-featured">⭐ Featured</span>}
+                      </div>
+                      <div className="pred-body">
+                        <h4 className="pred-title">{pred.title}</h4>
+                        {pred.subtitle && <p className="pred-subtitle">{pred.subtitle}</p>}
+                        {pred.tge_date && (
+                          <div className="pred-tge-info">
+                            <span>TGE: {new Date(pred.tge_date).toLocaleDateString()}</span>
+                            {pred.market_cap && <span>Cap: {pred.market_cap}</span>}
+                            {pred.hype_level && <span>🔥 Hype: {pred.hype_level}%</span>}
+                          </div>
+                        )}
+                        <div className="pred-votes">
+                          <button className="vote-btn yes">
+                            👍 Yes ({pred.yes_votes})
+                          </button>
+                          <button className="vote-btn no">
+                            👎 No ({pred.no_votes})
+                          </button>
+                        </div>
+                        <div className="pred-creator">
+                          <span>by {pred.creator_name}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {arenaPredictions.length === 0 && (
+                  <div className="empty-state">
+                    <p>{language === 'ru' ? 'Нет активных предсказаний' : 'No active predictions'}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Influence Tab */}
+            {activeTab === 'influence' && (
+              <div className="influence-content">
+                <div className="influence-header">
+                  <h3 className="text-xl font-bold mb-2">Influence</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {language === 'ru' 
+                      ? 'Анализируйте влияние крипто-инфлюенсеров' 
+                      : 'Analyze crypto influencer impact'}
+                  </p>
+                </div>
+                <div className="influence-entities-grid">
+                  {influenceEntities.slice(0, 8).map((entity) => (
+                    <div key={entity.id} className="influence-entity-card">
+                      <div className="entity-header">
+                        <div className="entity-avatar">{entity.name.charAt(0)}</div>
+                        <div>
+                          <h4 className="entity-name">{entity.name}</h4>
+                          {entity.blockchain && <span className="entity-blockchain">{entity.blockchain}</span>}
+                        </div>
+                      </div>
+                      <div className="entity-stats">
+                        <div className="stat-row">
+                          <span className="stat-label">{language === 'ru' ? 'Подписчики' : 'Followers'}:</span>
+                          <span className="stat-value">{entity.followers.toLocaleString()}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">{language === 'ru' ? 'Рост' : 'Growth'}:</span>
+                          <span className="stat-value positive">+{entity.growth_30d}%</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">ER:</span>
+                          <span className="stat-value">{entity.engagement_rate}%</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">X Score:</span>
+                          <span className="stat-value">{entity.x_score}</span>
+                          <span className="stat-change">{entity.x_score_change > 0 ? '↑' : '↓'}{Math.abs(entity.x_score_change)}</span>
+                        </div>
+                        <div className="stat-row">
+                          <span className="stat-label">FOMO Score:</span>
+                          <span className="stat-value">{entity.fomo_score}</span>
+                        </div>
+                        {entity.red_flags > 0 && (
+                          <div className="red-flags">🚩 {entity.red_flags} Red Flags</div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {influenceEntities.length === 0 && (
+                  <div className="empty-state">
+                    <p>{language === 'ru' ? 'Нет данных об инфлюенсерах' : 'No influencer data available'}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* EarlyLand Tab */}
+            {activeTab === 'earlyland' && (
+              <div className="earlyland-content">
+                <div className="earlyland-header">
+                  <h3 className="text-xl font-bold mb-2">EarlyLand</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {language === 'ru' 
+                      ? 'Откройте для себя ранние Web3 возможности' 
+                      : 'Discover early Web3 opportunities'}
+                  </p>
+                </div>
+                <div className="earlyland-opportunities-grid">
+                  {earlylandOpportunities.slice(0, 9).map((opp) => (
+                    <div key={opp.id} className="earlyland-opportunity-card">
+                      <div className="opp-badges">
+                        <span className="opp-category">{opp.category}</span>
+                        {opp.is_new && <span className="opp-new">NEW</span>}
+                        {opp.is_most_hyped && <span className="opp-hyped">🔥 Most Hyped</span>}
+                      </div>
+                      <div className="opp-body">
+                        <h4 className="opp-title">{opp.title}</h4>
+                        {opp.subtitle && <p className="opp-subtitle">{opp.subtitle}</p>}
+                        <div className="opp-tags">
+                          <span className="opp-tag">{opp.type_tag}</span>
+                        </div>
+                        <div className="opp-details">
+                          <div className="opp-difficulty difficulty-{opp.difficulty.toLowerCase()}">
+                            {language === 'ru' ? 'Сложность' : 'Difficulty'}: {opp.difficulty}
+                          </div>
+                          <div className="opp-reward">
+                            {language === 'ru' ? 'Награда' : 'Reward'}: {opp.reward}
+                          </div>
+                          <div className="opp-end-date">
+                            {language === 'ru' ? 'До' : 'Ends'}: {new Date(opp.end_date).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <button className="opp-details-btn">{language === 'ru' ? 'Детали' : 'Details'}</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {earlylandOpportunities.length === 0 && (
+                  <div className="empty-state">
+                    <p>{language === 'ru' ? 'Нет доступных возможностей' : 'No opportunities available'}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       </div>

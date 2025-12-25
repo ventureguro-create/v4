@@ -7549,14 +7549,14 @@ const Footer = ({ footerSettings }) => {
         <div className="footer-grid">
           {/* GET STARTED Section */}
           <div className="footer-column">
-            <h3 className="footer-column-title">GET STARTED</h3>
+            <h3 className="footer-column-title">{t.getStarted}</h3>
             <a 
               href={settings.cta_button_url || '#'} 
               className="footer-login-btn"
               target={settings.cta_button_url && settings.cta_button_url !== '#' ? '_blank' : '_self'}
               rel={settings.cta_button_url && settings.cta_button_url !== '#' ? 'noopener noreferrer' : undefined}
             >
-              {settings.cta_button_text || 'Launch Platform →'}
+              {settings.cta_button_text || t.launchPlatform + ' →'}
             </a>
           </div>
 

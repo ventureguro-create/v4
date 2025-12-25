@@ -6223,3 +6223,11 @@ html { scroll-behavior: smooth; }
     text-align: left;
   }
 }
+
+/* Brand Tagline Only */
+.brand-tagline-only {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-left: 12px;
+}

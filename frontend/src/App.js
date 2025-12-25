@@ -5768,17 +5768,20 @@ const PlatformOverview = ({ platformSettings }) => {
             {/* Practice/Platform Info Header */}
             <div className="dashboard-header">
               <div className="dashboard-brand">
-                <div className="brand-logo">
-                  <img src="/logo.svg" alt="FOMO" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
-                </div>
+                <img 
+                  src="/logo.svg" 
+                  alt="FOMO" 
+                  className="h-12 w-auto mr-3"
+                  style={{ maxHeight: '48px' }}
+                />
                 <div>
                   <span className="brand-name">FOMO Platform</span>
                   <span className="brand-tagline">fomo.cx</span>
                 </div>
               </div>
               <div className="dashboard-meta">
-                <span className="meta-item">👥 45.6K</span>
-                <span className="meta-item">📊 25</span>
+                <span className="meta-item">👥 {settings.community || '45.6K'}</span>
+                <span className="meta-item">📊 {settings.visits || '25'}</span>
               </div>
             </div>
 

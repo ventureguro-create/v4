@@ -6568,12 +6568,12 @@ const EvolutionSection = () => {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <span style={{ display: 'inline-block', padding: '10px 24px', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '50px', color: '#10b981', fontSize: '14px', fontWeight: '600', marginBottom: '24px' }}>
-            NFT Journey
+            {t.badge}
           </span>
           <h2 style={{ fontSize: '52px', fontWeight: '800', color: 'white', margin: '0 0 16px 0', lineHeight: '1.1' }}>
-            User <span style={{ background: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Evolution</span>
+            {t.title} <span style={{ background: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t.titleHighlight}</span>
           </h2>
-          <p style={{ fontSize: '18px', color: '#94a3b8', margin: 0 }}>Progress through levels and unlock exclusive benefits</p>
+          <p style={{ fontSize: '18px', color: '#94a3b8', margin: 0 }}>{t.subtitle}</p>
         </div>
 
         {/* Tabs */}

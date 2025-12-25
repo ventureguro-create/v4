@@ -5020,7 +5020,7 @@ const Navigation = () => {
             <div className="action-buttons-group">
               <a href="#crypto" className="action-btn action-btn-outline">Crypto</a>
               <a href="#core" className="action-btn action-btn-outline">Core</a>
-              <a href="#utility" className="action-btn action-btn-featured">Utility</a>
+              <a href="#utility" className="action-btn action-btn-outline">Utility</a>
             </div>
           </div>
 

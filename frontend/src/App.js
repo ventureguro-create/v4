@@ -6127,59 +6127,112 @@ const PlatformOverview = ({ platformSettings }) => {
 
             {/* Influence Tab */}
             {activeTab === 'influence' && (
-              <div className="influence-content">
-                <div className="influence-header">
-                  <h3 className="text-xl font-bold mb-2">Influence</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {language === 'ru' 
-                      ? 'Анализируйте влияние крипто-инфлюенсеров' 
-                      : 'Analyze crypto influencer impact'}
-                  </p>
+              <div className="influence-section">
+                {/* Influence Header */}
+                <div className="influence-header-block">
+                  <div className="influence-title-group">
+                    <h3 className="section-title">
+                      <span className="title-icon">👥</span> Influence
+                    </h3>
+                    <p className="section-subtitle">
+                      {language === 'ru' 
+                        ? 'Аналитика влияния крипто-инфлюенсеров и фондов' 
+                        : 'Crypto influencer and fund impact analytics'}
+                    </p>
+                  </div>
+                  <div className="influence-filters">
+                    <button className="filter-btn active">
+                      {language === 'ru' ? 'Все' : 'All'}
+                    </button>
+                    <button className="filter-btn">
+                      {language === 'ru' ? 'Инфлюенсеры' : 'Influencers'}
+                    </button>
+                    <button className="filter-btn">
+                      {language === 'ru' ? 'Фонды' : 'Funds'}
+                    </button>
+                    <button className="filter-btn">
+                      {language === 'ru' ? 'Проекты' : 'Projects'}
+                    </button>
+                  </div>
                 </div>
-                <div className="influence-entities-grid">
-                  {influenceEntities.slice(0, 8).map((entity) => (
-                    <div key={entity.id} className="influence-entity-card">
-                      <div className="entity-header">
-                        <div className="entity-avatar">{entity.name.charAt(0)}</div>
-                        <div>
-                          <h4 className="entity-name">{entity.name}</h4>
-                          {entity.blockchain && <span className="entity-blockchain">{entity.blockchain}</span>}
+
+                {/* Influence Table */}
+                <div className="influence-table">
+                  <div className="table-header">
+                    <div className="th">#</div>
+                    <div className="th">{language === 'ru' ? 'Имя' : 'Name'}</div>
+                    <div className="th">{language === 'ru' ? 'Блокчейн' : 'Blockchain'}</div>
+                    <div className="th">{language === 'ru' ? 'Подписчики' : 'Followers'}</div>
+                    <div className="th">{language === 'ru' ? 'Рост 30д' : 'Growth 30d'}</div>
+                    <div className="th">ER</div>
+                    <div className="th">X Score</div>
+                    <div className="th">FOMO</div>
+                    <div className="th">{language === 'ru' ? 'Связи' : 'Relations'}</div>
+                  </div>
+                  
+                  {influenceEntities.length > 0 ? influenceEntities.slice(0, 10).map((entity, index) => (
+                    <div key={entity.id} className="table-row influence-row">
+                      <div className="td rank-cell">#{index + 1}</div>
+                      <div className="td name-cell">
+                        <div className="entity-avatar-mini">
+                          {entity.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="entity-name-info">
+                          <div className="entity-name-text">{entity.name}</div>
+                          <div className="entity-type-label">{entity.entity_type}</div>
                         </div>
                       </div>
-                      <div className="entity-stats">
-                        <div className="stat-row">
-                          <span className="stat-label">{language === 'ru' ? 'Подписчики' : 'Followers'}:</span>
-                          <span className="stat-value">{entity.followers.toLocaleString()}</span>
-                        </div>
-                        <div className="stat-row">
-                          <span className="stat-label">{language === 'ru' ? 'Рост' : 'Growth'}:</span>
-                          <span className="stat-value positive">+{entity.growth_30d}%</span>
-                        </div>
-                        <div className="stat-row">
-                          <span className="stat-label">ER:</span>
-                          <span className="stat-value">{entity.engagement_rate}%</span>
-                        </div>
-                        <div className="stat-row">
-                          <span className="stat-label">X Score:</span>
-                          <span className="stat-value">{entity.x_score}</span>
-                          <span className="stat-change">{entity.x_score_change > 0 ? '↑' : '↓'}{Math.abs(entity.x_score_change)}</span>
-                        </div>
-                        <div className="stat-row">
-                          <span className="stat-label">FOMO Score:</span>
-                          <span className="stat-value">{entity.fomo_score}</span>
-                        </div>
-                        {entity.red_flags > 0 && (
-                          <div className="red-flags">🚩 {entity.red_flags} Red Flags</div>
+                      <div className="td">
+                        {entity.blockchain ? (
+                          <span className="blockchain-tag">{entity.blockchain}</span>
+                        ) : (
+                          <span className="text-gray-400">-</span>
                         )}
                       </div>
+                      <div className="td">
+                        <div className="followers-count">
+                          {entity.followers >= 1000 
+                            ? `${(entity.followers / 1000).toFixed(1)}K` 
+                            : entity.followers}
+                        </div>
+                      </div>
+                      <div className="td">
+                        <div className={`growth-badge ${entity.growth_30d > 0 ? 'positive' : 'negative'}`}>
+                          {entity.growth_30d > 0 ? '↑' : '↓'} {Math.abs(entity.growth_30d).toFixed(1)}%
+                        </div>
+                      </div>
+                      <div className="td">
+                        <div className="er-value">{entity.engagement_rate.toFixed(1)}%</div>
+                      </div>
+                      <div className="td">
+                        <div className="score-display">
+                          <span className="score-value">{entity.x_score}</span>
+                          <span className={`score-change ${entity.x_score_change > 0 ? 'positive' : 'negative'}`}>
+                            {entity.x_score_change > 0 ? '↑' : '↓'}{Math.abs(entity.x_score_change)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="td">
+                        <div className="fomo-score-badge">
+                          <span className="fomo-value">{entity.fomo_score}</span>
+                          <span className="fomo-likes">❤️ {entity.fomo_score_likes}</span>
+                        </div>
+                      </div>
+                      <div className="td">
+                        <div className="relations-summary">
+                          <span className="relation-item" title="Persons">{entity.persons}👤</span>
+                          <span className="relation-item" title="Funds">{entity.funds}💼</span>
+                          <span className="relation-item" title="Projects">{entity.projects}🚀</span>
+                        </div>
+                      </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="empty-influence">
+                      <div className="empty-icon">👥</div>
+                      <p>{language === 'ru' ? 'Нет данных об инфлюенсерах' : 'No influencer data'}</p>
+                    </div>
+                  )}
                 </div>
-                {influenceEntities.length === 0 && (
-                  <div className="empty-state">
-                    <p>{language === 'ru' ? 'Нет данных об инфлюенсерах' : 'No influencer data available'}</p>
-                  </div>
-                )}
               </div>
             )}
 

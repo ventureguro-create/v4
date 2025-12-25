@@ -4930,6 +4930,7 @@ const AnimatedIcon = ({ type, className = "" }) => {
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
   const { language, toggleLanguage } = useLanguage();
   const t = useTranslation();
 
@@ -4939,13 +4940,31 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { key: 'about', label: t('nav.about'), href: '#about' },
-    { key: 'projects', label: t('nav.platform'), href: '#projects' },
-    { key: 'roadmap', label: t('nav.roadmap'), href: '#roadmap' },
-    { key: 'team', label: t('nav.team'), href: '#team' },
-    { key: 'partners', label: t('nav.partners'), href: '#partners' }
-  ];
+  // Fetch navigation items from API
+  useEffect(() => {
+    const fetchNavItems = async () => {
+      try {
+        const response = await axios.get(`${API}/navigation-items`);
+        const items = response.data.map(item => ({
+          key: item.key,
+          label: language === 'ru' ? item.label_ru : item.label_en,
+          href: item.href
+        }));
+        setNavItems(items);
+      } catch (error) {
+        console.error('Error fetching navigation items:', error);
+        // Fallback to default items
+        setNavItems([
+          { key: 'about', label: t('nav.about'), href: '#about' },
+          { key: 'projects', label: t('nav.platform'), href: '#projects' },
+          { key: 'roadmap', label: t('nav.roadmap'), href: '#roadmap' },
+          { key: 'team', label: t('nav.team'), href: '#team' },
+          { key: 'partners', label: t('nav.partners'), href: '#partners' }
+        ]);
+      }
+    };
+    fetchNavItems();
+  }, [language, t]);
 
   return (
     <nav data-testid="main-navigation" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-scrolled' : 'nav-transparent'}`}>

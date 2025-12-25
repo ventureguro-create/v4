@@ -1847,6 +1847,525 @@ async def delete_evolution_badge(badge_id: str):
     return {"message": "Badge deleted"}
 
 
+# ==================== OTC P2P MARKET MODELS ====================
+
+class P2PDeal(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    user_name: str
+    user_avatar: Optional[str] = None
+    wallet_address: str
+    deal_type: str  # "buy" or "sell"
+    crypto_type: str  # "USDT", "BTC", "ETH", etc.
+    price: float
+    amount: float
+    payment_method: str
+    payment_details: Optional[str] = None
+    end_date: datetime
+    status: str = "active"  # "active", "completed", "cancelled"
+    risk_level: str = "low"  # "low", "medium", "high"
+    likes: int = 0
+    dislikes: int = 0
+    is_promoted: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class P2PDealCreate(BaseModel):
+    user_name: str
+    user_avatar: Optional[str] = None
+    wallet_address: str
+    deal_type: str
+    crypto_type: str
+    price: float
+    amount: float
+    payment_method: str
+    payment_details: Optional[str] = None
+    end_date: datetime
+    risk_level: str = "low"
+    is_promoted: bool = False
+
+class P2PDealUpdate(BaseModel):
+    user_name: Optional[str] = None
+    price: Optional[float] = None
+    amount: Optional[float] = None
+    payment_method: Optional[str] = None
+    payment_details: Optional[str] = None
+    end_date: Optional[datetime] = None
+    status: Optional[str] = None
+    risk_level: Optional[str] = None
+    is_promoted: Optional[bool] = None
+
+
+# ==================== ARENA PREDICTIONS MODELS ====================
+
+class ArenaPrediction(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    title: str
+    subtitle: Optional[str] = None
+    category: str  # "TGE", "Price", "Airdrop", "Event"
+    project_logo: Optional[str] = None
+    tge_date: Optional[datetime] = None
+    market_cap: Optional[str] = None
+    hype_level: Optional[int] = None  # 0-100
+    target_price: Optional[float] = None
+    target_date: Optional[datetime] = None
+    chance_percentage: Optional[int] = None  # 0-100
+    yes_votes: int = 0
+    no_votes: int = 0
+    total_volume: Optional[str] = None
+    creator_name: str
+    status: str = "active"  # "active", "live", "upcoming", "resolved"
+    end_date: datetime
+    is_featured: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ArenaPredictionCreate(BaseModel):
+    title: str
+    subtitle: Optional[str] = None
+    category: str
+    project_logo: Optional[str] = None
+    tge_date: Optional[datetime] = None
+    market_cap: Optional[str] = None
+    hype_level: Optional[int] = None
+    target_price: Optional[float] = None
+    target_date: Optional[datetime] = None
+    chance_percentage: Optional[int] = None
+    creator_name: str
+    end_date: datetime
+    is_featured: bool = False
+
+class ArenaPredictionUpdate(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    category: Optional[str] = None
+    hype_level: Optional[int] = None
+    yes_votes: Optional[int] = None
+    no_votes: Optional[int] = None
+    status: Optional[str] = None
+    is_featured: Optional[bool] = None
+
+
+# ==================== INFLUENCE ENTITIES MODELS ====================
+
+class InfluenceEntity(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    name: str
+    avatar: Optional[str] = None
+    blockchain: Optional[str] = None  # "TON", "SOL", "ADA", etc.
+    entity_type: str  # "influencer", "fund", "project"
+    followers: int
+    following: int
+    growth_30d: float  # percentage
+    engagement_rate: float  # percentage
+    x_score: int  # 0-1000
+    x_score_change: int  # daily change
+    red_flags: int = 0
+    fomo_score: int  # 0-100
+    fomo_score_likes: int = 0
+    total_relations: int = 0
+    persons: int = 0
+    funds: int = 0
+    projects: int = 0
+    is_suggested: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class InfluenceEntityCreate(BaseModel):
+    name: str
+    avatar: Optional[str] = None
+    blockchain: Optional[str] = None
+    entity_type: str
+    followers: int
+    following: int
+    growth_30d: float
+    engagement_rate: float
+    x_score: int
+    x_score_change: int = 0
+    red_flags: int = 0
+    fomo_score: int
+    fomo_score_likes: int = 0
+    is_suggested: bool = False
+
+class InfluenceEntityUpdate(BaseModel):
+    name: Optional[str] = None
+    followers: Optional[int] = None
+    following: Optional[int] = None
+    growth_30d: Optional[float] = None
+    engagement_rate: Optional[float] = None
+    x_score: Optional[int] = None
+    x_score_change: Optional[int] = None
+    red_flags: Optional[int] = None
+    fomo_score: Optional[int] = None
+    is_suggested: Optional[bool] = None
+
+
+# ==================== EARLYLAND OPPORTUNITIES MODELS ====================
+
+class EarlylandOpportunity(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    title: str
+    subtitle: Optional[str] = None
+    logo: Optional[str] = None
+    category: str  # "Airdrop", "Testnet", "Quests", "Whitelist", "Farming", "Others"
+    type_tag: str  # "DeFi", "NFT", "Gaming", etc.
+    difficulty: str  # "Easy", "Medium", "Hard"
+    reward: str  # "High Potential", "NFT", "~$2000", etc.
+    end_date: datetime
+    status: str = "active"  # "active", "deadline_soon", "ended"
+    is_new: bool = False
+    is_most_hyped: bool = False
+    participants: int = 0
+    completed: int = 0
+    engagement_score: int = 0
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class EarlylandOpportunityCreate(BaseModel):
+    title: str
+    subtitle: Optional[str] = None
+    logo: Optional[str] = None
+    category: str
+    type_tag: str
+    difficulty: str
+    reward: str
+    end_date: datetime
+    is_new: bool = False
+    is_most_hyped: bool = False
+
+class EarlylandOpportunityUpdate(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    category: Optional[str] = None
+    difficulty: Optional[str] = None
+    reward: Optional[str] = None
+    end_date: Optional[datetime] = None
+    status: Optional[str] = None
+    is_new: Optional[bool] = None
+    is_most_hyped: Optional[bool] = None
+    participants: Optional[int] = None
+    completed: Optional[int] = None
+
+
+# ==================== OTC P2P MARKET ENDPOINTS ====================
+
+@api_router.get("/p2p-deals", response_model=List[P2PDeal])
+async def get_p2p_deals(
+    deal_type: Optional[str] = None,
+    crypto_type: Optional[str] = None,
+    status: Optional[str] = None
+):
+    query = {}
+    if deal_type:
+        query["deal_type"] = deal_type
+    if crypto_type:
+        query["crypto_type"] = crypto_type
+    if status:
+        query["status"] = status
+    
+    deals = await db.p2p_deals.find(query, {"_id": 0}).to_list(100)
+    if not deals:
+        # Default sample deals
+        default_deals = [
+            {
+                "id": str(uuid4()),
+                "user_name": "Dr. Laurent",
+                "user_avatar": None,
+                "wallet_address": "0xf5gd...75h0",
+                "deal_type": "buy",
+                "crypto_type": "USDT",
+                "price": 43.4,
+                "amount": 1000,
+                "payment_method": "Monobank (Card)",
+                "payment_details": "Payment details in chat",
+                "end_date": datetime(2025, 8, 20, 0, 0),
+                "status": "active",
+                "risk_level": "low",
+                "likes": 1200,
+                "dislikes": 123,
+                "is_promoted": False,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for deal in default_deals:
+            await db.p2p_deals.insert_one(deal)
+        deals = default_deals
+    return deals
+
+@api_router.post("/p2p-deals", response_model=P2PDeal)
+async def create_p2p_deal(deal: P2PDealCreate):
+    new_deal = {
+        "id": str(uuid4()),
+        **deal.model_dump(),
+        "likes": 0,
+        "dislikes": 0,
+        "status": "active",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.p2p_deals.insert_one(new_deal)
+    created = await db.p2p_deals.find_one({"id": new_deal["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/p2p-deals/{deal_id}", response_model=P2PDeal)
+async def update_p2p_deal(deal_id: str, update: P2PDealUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.p2p_deals.update_one({"id": deal_id}, {"$set": update_dict})
+    updated = await db.p2p_deals.find_one({"id": deal_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Deal not found")
+    return updated
+
+@api_router.delete("/p2p-deals/{deal_id}")
+async def delete_p2p_deal(deal_id: str):
+    result = await db.p2p_deals.delete_one({"id": deal_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Deal not found")
+    return {"message": "Deal deleted"}
+
+
+# ==================== ARENA PREDICTIONS ENDPOINTS ====================
+
+@api_router.get("/arena-predictions", response_model=List[ArenaPrediction])
+async def get_arena_predictions(
+    category: Optional[str] = None,
+    status: Optional[str] = None
+):
+    query = {}
+    if category:
+        query["category"] = category
+    if status:
+        query["status"] = status
+    
+    predictions = await db.arena_predictions.find(query, {"_id": 0}).to_list(100)
+    if not predictions:
+        # Default sample predictions
+        default_predictions = [
+            {
+                "id": str(uuid4()),
+                "title": "SharkRace Club",
+                "subtitle": "NFT & Collectibles",
+                "category": "TGE",
+                "project_logo": None,
+                "tge_date": datetime(2026, 3, 8),
+                "market_cap": "$5.2M",
+                "hype_level": 72,
+                "yes_votes": 87,
+                "no_votes": 145,
+                "creator_name": "Jessica Monroe",
+                "status": "active",
+                "end_date": datetime(2026, 3, 8),
+                "is_featured": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for pred in default_predictions:
+            await db.arena_predictions.insert_one(pred)
+        predictions = default_predictions
+    return predictions
+
+@api_router.post("/arena-predictions", response_model=ArenaPrediction)
+async def create_arena_prediction(prediction: ArenaPredictionCreate):
+    new_prediction = {
+        "id": str(uuid4()),
+        **prediction.model_dump(),
+        "yes_votes": 0,
+        "no_votes": 0,
+        "status": "active",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.arena_predictions.insert_one(new_prediction)
+    created = await db.arena_predictions.find_one({"id": new_prediction["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/arena-predictions/{prediction_id}", response_model=ArenaPrediction)
+async def update_arena_prediction(prediction_id: str, update: ArenaPredictionUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.arena_predictions.update_one({"id": prediction_id}, {"$set": update_dict})
+    updated = await db.arena_predictions.find_one({"id": prediction_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Prediction not found")
+    return updated
+
+@api_router.delete("/arena-predictions/{prediction_id}")
+async def delete_arena_prediction(prediction_id: str):
+    result = await db.arena_predictions.delete_one({"id": prediction_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Prediction not found")
+    return {"message": "Prediction deleted"}
+
+
+# ==================== INFLUENCE ENTITIES ENDPOINTS ====================
+
+@api_router.get("/influence-entities", response_model=List[InfluenceEntity])
+async def get_influence_entities(
+    entity_type: Optional[str] = None,
+    is_suggested: Optional[bool] = None
+):
+    query = {}
+    if entity_type:
+        query["entity_type"] = entity_type
+    if is_suggested is not None:
+        query["is_suggested"] = is_suggested
+    
+    entities = await db.influence_entities.find(query, {"_id": 0}).to_list(100)
+    if not entities:
+        # Default sample entities
+        default_entities = [
+            {
+                "id": str(uuid4()),
+                "name": "Laurent Ghoul",
+                "avatar": None,
+                "entity_type": "influencer",
+                "followers": 184200,
+                "following": 612,
+                "growth_30d": 3.8,
+                "engagement_rate": 8.2,
+                "x_score": 923,
+                "x_score_change": 12,
+                "red_flags": 0,
+                "fomo_score": 94,
+                "fomo_score_likes": 654,
+                "total_relations": 453,
+                "persons": 53,
+                "funds": 200,
+                "projects": 200,
+                "is_suggested": False,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for entity in default_entities:
+            await db.influence_entities.insert_one(entity)
+        entities = default_entities
+    return entities
+
+@api_router.post("/influence-entities", response_model=InfluenceEntity)
+async def create_influence_entity(entity: InfluenceEntityCreate):
+    new_entity = {
+        "id": str(uuid4()),
+        **entity.model_dump(),
+        "total_relations": 0,
+        "persons": 0,
+        "funds": 0,
+        "projects": 0,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.influence_entities.insert_one(new_entity)
+    created = await db.influence_entities.find_one({"id": new_entity["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/influence-entities/{entity_id}", response_model=InfluenceEntity)
+async def update_influence_entity(entity_id: str, update: InfluenceEntityUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.influence_entities.update_one({"id": entity_id}, {"$set": update_dict})
+    updated = await db.influence_entities.find_one({"id": entity_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Entity not found")
+    return updated
+
+@api_router.delete("/influence-entities/{entity_id}")
+async def delete_influence_entity(entity_id: str):
+    result = await db.influence_entities.delete_one({"id": entity_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Entity not found")
+    return {"message": "Entity deleted"}
+
+
+# ==================== EARLYLAND OPPORTUNITIES ENDPOINTS ====================
+
+@api_router.get("/earlyland-opportunities", response_model=List[EarlylandOpportunity])
+async def get_earlyland_opportunities(
+    category: Optional[str] = None,
+    status: Optional[str] = None
+):
+    query = {}
+    if category:
+        query["category"] = category
+    if status:
+        query["status"] = status
+    
+    opportunities = await db.earlyland_opportunities.find(query, {"_id": 0}).to_list(100)
+    if not opportunities:
+        # Default sample opportunities
+        default_opportunities = [
+            {
+                "id": str(uuid4()),
+                "title": "zkLink Nova",
+                "subtitle": "Testnet",
+                "logo": None,
+                "category": "Testnet",
+                "type_tag": "DeFi",
+                "difficulty": "Easy",
+                "reward": "High Potential",
+                "end_date": datetime(2025, 7, 5),
+                "status": "active",
+                "is_new": False,
+                "is_most_hyped": True,
+                "participants": 0,
+                "completed": 87,
+                "engagement_score": 145,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for opp in default_opportunities:
+            await db.earlyland_opportunities.insert_one(opp)
+        opportunities = default_opportunities
+    return opportunities
+
+@api_router.post("/earlyland-opportunities", response_model=EarlylandOpportunity)
+async def create_earlyland_opportunity(opportunity: EarlylandOpportunityCreate):
+    new_opportunity = {
+        "id": str(uuid4()),
+        **opportunity.model_dump(),
+        "status": "active",
+        "participants": 0,
+        "completed": 0,
+        "engagement_score": 0,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.earlyland_opportunities.insert_one(new_opportunity)
+    created = await db.earlyland_opportunities.find_one({"id": new_opportunity["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/earlyland-opportunities/{opportunity_id}", response_model=EarlylandOpportunity)
+async def update_earlyland_opportunity(opportunity_id: str, update: EarlylandOpportunityUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.earlyland_opportunities.update_one({"id": opportunity_id}, {"$set": update_dict})
+    updated = await db.earlyland_opportunities.find_one({"id": opportunity_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    return updated
+
+@api_router.delete("/earlyland-opportunities/{opportunity_id}")
+async def delete_earlyland_opportunity(opportunity_id: str):
+    result = await db.earlyland_opportunities.delete_one({"id": opportunity_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    return {"message": "Opportunity deleted"}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 

@@ -5781,13 +5781,10 @@ const PlatformOverview = ({ platformSettings }) => {
                 <img 
                   src="/logo.svg" 
                   alt="FOMO" 
-                  className="h-12 w-auto mr-3"
+                  className="h-12 w-auto"
                   style={{ maxHeight: '48px' }}
                 />
-                <div>
-                  <span className="brand-name">FOMO Platform</span>
-                  <span className="brand-tagline">fomo.cx</span>
-                </div>
+                <div className="brand-tagline-only">fomo.cx</div>
               </div>
               <div className="dashboard-meta">
                 <span className="meta-item">👥 {settings.community?.value || '45.6K'}</span>

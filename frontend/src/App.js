@@ -7649,7 +7649,7 @@ const Footer = ({ footerSettings }) => {
         {/* Copyright and Disclaimer */}
         <div className="footer-copyright">
           <p className="footer-copyright-text">
-            {settings.copyright_text || '© 2025 FOMO. All rights reserved.'}
+            {settings.copyright_text || `© 2025 FOMO. ${t.allRightsReserved}`}
           </p>
           {settings.legal_disclaimer && (
             <p className="footer-disclaimer">{settings.legal_disclaimer}</p>

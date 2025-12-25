@@ -5049,9 +5049,9 @@ const Navigation = () => {
             ))}
             
             <div className="flex gap-2 mt-3 pt-3 border-t border-gray-100">
-              <a href="#crypto" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium">Crypto</a>
-              <a href="#core" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium">Core</a>
-              <a href="#utility" className="flex-1 text-center py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl">Utility</a>
+              <a href="#crypto" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Crypto</a>
+              <a href="#core" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Core</a>
+              <a href="#utility" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Utility</a>
             </div>
           </div>
         )}

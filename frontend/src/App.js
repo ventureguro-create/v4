@@ -5992,6 +5992,35 @@ const MyProductsSection = ({ cards }) => {
 
 // Simplified Roadmap
 const RoadmapSection = ({ roadmapData }) => {
+  const { language } = useLanguage();
+  
+  const content = {
+    en: {
+      badge: 'Our Progress',
+      title: 'Project Roadmap',
+      subtitle: 'Track our development progress in real-time',
+      completed: 'Completed',
+      inProgress: 'In Progress',
+      completeLabel: 'Complete',
+      all: 'All',
+      done: 'Done',
+      progress: 'Progress'
+    },
+    ru: {
+      badge: 'Наш прогресс',
+      title: 'Дорожная карта проекта',
+      subtitle: 'Отслеживайте прогресс разработки в реальном времени',
+      completed: 'Завершено',
+      inProgress: 'В процессе',
+      completeLabel: 'Завершено',
+      all: 'Все',
+      done: 'Готово',
+      progress: 'В процессе'
+    }
+  };
+
+  const t = content[language];
+  
   const defaultTasks = [
     { id: '1', name: 'Platform Architecture', status: 'done', category: 'Development' },
     { id: '2', name: 'Core Team Formation', status: 'done', category: 'Team' },
@@ -6011,21 +6040,21 @@ const RoadmapSection = ({ roadmapData }) => {
     ? roadmapData.tasks.sort((a, b) => (a.order || 0) - (b.order || 0))
     : defaultTasks;
     
-  const sectionBadge = roadmapData?.section_badge || 'Our Progress';
-  const sectionTitle = roadmapData?.section_title || 'Project Roadmap';
-  const sectionSubtitle = roadmapData?.section_subtitle || 'Track our development progress in real-time';
+  const sectionBadge = roadmapData?.section_badge || t.badge;
+  const sectionTitle = roadmapData?.section_title || t.title;
+  const sectionSubtitle = roadmapData?.section_subtitle || t.subtitle;
 
   const [filter, setFilter] = useState('all');
-  const filteredTasks = filter === 'all' ? tasks : tasks.filter(t => t.status === filter);
+  const filteredTasks = filter === 'all' ? tasks : tasks.filter(task => task.status === filter);
 
   const statusConfig = {
-    done: { label: 'Completed', color: 'bg-emerald-500', textColor: 'text-emerald-600', bgLight: 'bg-emerald-50' },
-    progress: { label: 'In Progress', color: 'bg-amber-500', textColor: 'text-amber-600', bgLight: 'bg-amber-50' },
+    done: { label: t.completed, color: 'bg-emerald-500', textColor: 'text-emerald-600', bgLight: 'bg-emerald-50' },
+    progress: { label: t.inProgress, color: 'bg-amber-500', textColor: 'text-amber-600', bgLight: 'bg-amber-50' },
   };
 
   const stats = {
-    done: tasks.filter(t => t.status === 'done').length,
-    progress: tasks.filter(t => t.status === 'progress').length,
+    done: tasks.filter(task => task.status === 'done').length,
+    progress: tasks.filter(task => task.status === 'progress').length,
   };
   
   const progressPercent = tasks.length > 0 ? Math.round((stats.done / tasks.length) * 100) : 0;
@@ -6047,7 +6076,7 @@ const RoadmapSection = ({ roadmapData }) => {
 
         <div className="roadmap-progress-bar mb-8">
           <div className="progress-fill" style={{ width: `${progressPercent}%` }}></div>
-          <span className="progress-label">{progressPercent}% Complete</span>
+          <span className="progress-label">{progressPercent}% {t.completeLabel}</span>
         </div>
 
         <div className="flex justify-center gap-2 mb-8">

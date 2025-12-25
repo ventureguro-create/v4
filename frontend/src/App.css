@@ -52,6 +52,7 @@ html { scroll-behavior: smooth; }
 .language-switcher {
   display: flex;
   align-items: center;
+  gap: 2px;
   padding: 8px 16px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -71,6 +72,7 @@ html { scroll-behavior: smooth; }
 .language-switcher span {
   color: #9ca3af;
   transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
 .language-switcher span.active {
@@ -78,7 +80,7 @@ html { scroll-behavior: smooth; }
 }
 
 .language-switcher .separator {
-  margin: 0 6px;
+  margin: 0 8px;
   color: #d1d5db;
 }
 

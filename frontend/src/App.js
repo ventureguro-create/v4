@@ -6114,11 +6114,29 @@ const RoadmapSection = ({ roadmapData }) => {
 
 // Evolution Section - с анимированными SVG иконками и flip-карточками
 const EvolutionSection = () => {
+  const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('levels');
   const [flippedBadges, setFlippedBadges] = useState(new Set());
   const [hoveredLevel, setHoveredLevel] = useState(null);
   const [levels, setLevels] = useState([]);
   const [badges, setBadges] = useState([]);
+
+  const content = {
+    en: {
+      badge: 'NFT Journey',
+      title: 'User',
+      titleHighlight: 'Evolution',
+      subtitle: 'Progress through levels and unlock exclusive benefits'
+    },
+    ru: {
+      badge: 'NFT Путешествие',
+      title: 'Эволюция',
+      titleHighlight: 'Пользователя',
+      subtitle: 'Проходите уровни и открывайте эксклюзивные преимущества'
+    }
+  };
+
+  const t = content[language];
 
   // Fetch data from API
   useEffect(() => {

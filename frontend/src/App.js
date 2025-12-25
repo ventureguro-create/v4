@@ -5831,8 +5831,11 @@ const PlatformOverview = ({ platformSettings }) => {
               </button>
             </div>
 
-            {/* Stats Cards Grid */}
-            <div className="stats-cards-grid">
+            {/* Conditional Content based on active tab */}
+            {activeTab === 'dashboard' && (
+              <>
+                {/* Stats Cards Grid */}
+                <div className="stats-cards-grid">
               {/* Community Card */}
               <div className="stat-card">
                 <span className="stat-label">{platformStats.community[`label${langSuffix}`] || platformStats.community.label_ru || platformStats.community.label}</span>

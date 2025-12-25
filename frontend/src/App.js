@@ -5510,8 +5510,27 @@ const BuyNFTModal = ({ isOpen, onClose, nftSettings }) => {
 // Hero Section
 const HeroSection = ({ heroSettings }) => {
   const [showNFTModal, setShowNFTModal] = useState(false);
+  const [heroButtons, setHeroButtons] = useState([]);
   const t = useTranslation();
   const { language } = useLanguage();
+  
+  // Fetch hero buttons from API
+  useEffect(() => {
+    const fetchHeroButtons = async () => {
+      try {
+        const response = await axios.get(`${API}/hero-buttons`);
+        setHeroButtons(response.data);
+      } catch (error) {
+        console.error('Error fetching hero buttons:', error);
+        // Fallback to default buttons
+        setHeroButtons([
+          { id: '1', label_ru: 'Изучить платформу', label_en: 'Explore Platform', url: '#platform', style: 'primary' },
+          { id: '2', label_ru: 'Купить NFT', label_en: 'Buy NFT', url: '#nft', style: 'secondary' }
+        ]);
+      }
+    };
+    fetchHeroButtons();
+  }, []);
   
   // Get stats from settings or use defaults
   const stats = heroSettings?.stats || [

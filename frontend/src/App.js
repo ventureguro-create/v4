@@ -5922,59 +5922,95 @@ const PlatformOverview = ({ platformSettings }) => {
               </>
             )}
 
-            {/* OTC P2P Market Tab */}
+            {/* OTC Market Tab */}
             {activeTab === 'otc-p2p' && (
-              <div className="p2p-market-content">
-                <div className="p2p-header">
-                  <h3 className="text-xl font-bold mb-2">{language === 'ru' ? 'P2P Маркетплейс' : 'P2P Marketplace'}</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {language === 'ru' 
-                      ? 'Торгуйте криптовалютой напрямую с другими пользователями' 
-                      : 'Trade crypto directly with other users'}
-                  </p>
+              <div className="otc-market-section">
+                {/* OTC Header with Filters */}
+                <div className="otc-header">
+                  <div className="otc-title-group">
+                    <h3 className="section-title">{language === 'ru' ? 'OTC Маркетплейс' : 'OTC Marketplace'}</h3>
+                    <p className="section-subtitle">
+                      {language === 'ru' 
+                        ? 'Безопасная внебиржевая торговля криптовалютой' 
+                        : 'Secure over-the-counter crypto trading'}
+                    </p>
+                  </div>
+                  <div className="otc-filters">
+                    <button className="filter-btn active">
+                      <span className="filter-icon">💰</span> {language === 'ru' ? 'Все' : 'All'}
+                    </button>
+                    <button className="filter-btn">
+                      <span className="filter-icon">📈</span> {language === 'ru' ? 'Покупка' : 'Buy'}
+                    </button>
+                    <button className="filter-btn">
+                      <span className="filter-icon">📉</span> {language === 'ru' ? 'Продажа' : 'Sell'}
+                    </button>
+                  </div>
                 </div>
-                <div className="p2p-deals-grid">
-                  {p2pDeals.slice(0, 6).map((deal) => (
-                    <div key={deal.id} className="p2p-deal-card">
-                      <div className="deal-header">
-                        <span className="deal-type">{deal.deal_type === 'buy' ? (language === 'ru' ? 'Покупка' : 'Buy') : (language === 'ru' ? 'Продажа' : 'Sell')}</span>
-                        <span className="deal-crypto">{deal.crypto_type}</span>
+
+                {/* OTC Deals Table */}
+                <div className="otc-deals-table">
+                  <div className="table-header">
+                    <div className="th">{language === 'ru' ? 'Трейдер' : 'Trader'}</div>
+                    <div className="th">{language === 'ru' ? 'Тип' : 'Type'}</div>
+                    <div className="th">{language === 'ru' ? 'Актив' : 'Asset'}</div>
+                    <div className="th">{language === 'ru' ? 'Цена' : 'Price'}</div>
+                    <div className="th">{language === 'ru' ? 'Лимиты' : 'Limits'}</div>
+                    <div className="th">{language === 'ru' ? 'Оплата' : 'Payment'}</div>
+                    <div className="th text-right">{language === 'ru' ? 'Действие' : 'Action'}</div>
+                  </div>
+                  
+                  {p2pDeals.length > 0 ? p2pDeals.slice(0, 8).map((deal) => (
+                    <div key={deal.id} className="table-row">
+                      <div className="td trader-cell">
+                        <div className="trader-avatar">
+                          {deal.user_name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="trader-info">
+                          <div className="trader-name">{deal.user_name}</div>
+                          <div className="trader-rating">
+                            <span className="rating-stars">⭐⭐⭐⭐⭐</span>
+                            <span className="rating-count">(124)</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="deal-body">
-                        <div className="deal-user">
-                          <div className="user-avatar">{deal.user_name.charAt(0)}</div>
-                          <div>
-                            <div className="user-name">{deal.user_name}</div>
-                            <div className="user-wallet">{deal.wallet_address}</div>
-                          </div>
+                      <div className="td">
+                        <span className={`deal-type-badge ${deal.deal_type}`}>
+                          {deal.deal_type === 'buy' ? (language === 'ru' ? 'Покупка' : 'Buy') : (language === 'ru' ? 'Продажа' : 'Sell')}
+                        </span>
+                      </div>
+                      <div className="td">
+                        <div className="crypto-badge">
+                          <span className="crypto-icon">₿</span>
+                          {deal.crypto_type}
                         </div>
-                        <div className="deal-details">
-                          <div className="deal-price">
-                            <span className="label">{language === 'ru' ? 'Цена' : 'Price'}:</span>
-                            <span className="value">{deal.price} UAH</span>
-                          </div>
-                          <div className="deal-amount">
-                            <span className="label">{language === 'ru' ? 'Сумма' : 'Amount'}:</span>
-                            <span className="value">{deal.amount}</span>
-                          </div>
-                          <div className="deal-payment">
-                            <span className="label">{language === 'ru' ? 'Оплата' : 'Payment'}:</span>
-                            <span className="value">{deal.payment_method}</span>
-                          </div>
+                      </div>
+                      <div className="td">
+                        <div className="price-value">{deal.price.toFixed(2)} UAH</div>
+                      </div>
+                      <div className="td">
+                        <div className="limits-text">
+                          {deal.amount.toLocaleString()} {deal.crypto_type}
                         </div>
-                        <div className="deal-footer">
-                          <span className="deal-risk risk-{deal.risk_level}">{language === 'ru' ? 'Риск' : 'Risk'}: {deal.risk_level}</span>
-                          <button className="deal-btn">{language === 'ru' ? 'Детали' : 'Details'}</button>
+                      </div>
+                      <div className="td">
+                        <div className="payment-method">
+                          {deal.payment_method}
                         </div>
+                      </div>
+                      <div className="td text-right">
+                        <button className="trade-btn">
+                          {language === 'ru' ? 'Торговать' : 'Trade'}
+                        </button>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="empty-deals">
+                      <div className="empty-icon">💱</div>
+                      <p>{language === 'ru' ? 'Нет активных предложений' : 'No active offers'}</p>
+                    </div>
+                  )}
                 </div>
-                {p2pDeals.length === 0 && (
-                  <div className="empty-state">
-                    <p>{language === 'ru' ? 'Нет доступных сделок' : 'No deals available'}</p>
-                  </div>
-                )}
               </div>
             )}
 

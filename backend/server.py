@@ -2366,6 +2366,102 @@ async def delete_earlyland_opportunity(opportunity_id: str):
     return {"message": "Opportunity deleted"}
 
 
+# ==================== HERO BUTTONS SETTINGS ====================
+
+class HeroButton(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    label_ru: str
+    label_en: str
+    url: str
+    style: str = "primary"  # "primary", "secondary", "outline"
+    order: int = 0
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class HeroButtonCreate(BaseModel):
+    label_ru: str
+    label_en: str
+    url: str
+    style: str = "primary"
+    order: int = 0
+    is_active: bool = True
+
+class HeroButtonUpdate(BaseModel):
+    label_ru: Optional[str] = None
+    label_en: Optional[str] = None
+    url: Optional[str] = None
+    style: Optional[str] = None
+    order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+@api_router.get("/hero-buttons", response_model=List[HeroButton])
+async def get_hero_buttons():
+    buttons = await db.hero_buttons.find({"is_active": True}, {"_id": 0}).sort("order", 1).to_list(100)
+    if not buttons:
+        # Default hero buttons
+        default_buttons = [
+            {
+                "id": str(uuid4()),
+                "label_ru": "Изучить платформу",
+                "label_en": "Explore Platform",
+                "url": "#platform",
+                "style": "primary",
+                "order": 1,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "label_ru": "Купить NFT",
+                "label_en": "Buy NFT",
+                "url": "#nft",
+                "style": "secondary",
+                "order": 2,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for button in default_buttons:
+            await db.hero_buttons.insert_one(button)
+        buttons = default_buttons
+    return buttons
+
+@api_router.post("/hero-buttons", response_model=HeroButton)
+async def create_hero_button(button: HeroButtonCreate):
+    new_button = {
+        "id": str(uuid4()),
+        **button.model_dump(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.hero_buttons.insert_one(new_button)
+    created = await db.hero_buttons.find_one({"id": new_button["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/hero-buttons/{button_id}", response_model=HeroButton)
+async def update_hero_button(button_id: str, update: HeroButtonUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.hero_buttons.update_one({"id": button_id}, {"$set": update_dict})
+    updated = await db.hero_buttons.find_one({"id": button_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Hero button not found")
+    return updated
+
+@api_router.delete("/hero-buttons/{button_id}")
+async def delete_hero_button(button_id: str):
+    result = await db.hero_buttons.delete_one({"id": button_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Hero button not found")
+    return {"message": "Hero button deleted"}
+
+
 # ==================== NAVIGATION SETTINGS ====================
 
 class NavigationItem(BaseModel):

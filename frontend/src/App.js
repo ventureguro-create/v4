@@ -7622,13 +7622,13 @@ const Footer = ({ footerSettings }) => {
           {/* Legal Links */}
           <div className="footer-legal-links">
             <a href={settings.regulatory_disclosures_url || '#'} className="footer-legal-link">
-              Regulatory Disclosures
+              {t.regulatoryDisclosures}
             </a>
             <a href={settings.privacy_notice_url || '#'} className="footer-legal-link">
-              Privacy Notice
+              {t.privacyNotice}
             </a>
             <a href={settings.security_url || '#'} className="footer-legal-link">
-              Security
+              {t.security}
             </a>
           </div>
 

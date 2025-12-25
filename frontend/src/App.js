@@ -4966,6 +4966,14 @@ const Navigation = () => {
     fetchNavItems();
   }, [language, t]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <nav data-testid="main-navigation" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-scrolled' : 'nav-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4">

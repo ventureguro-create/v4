@@ -7440,30 +7440,75 @@ const FAQSection = ({ faqData }) => {
 
 
 const Footer = ({ footerSettings }) => {
+  const { language } = useLanguage();
   const settings = footerSettings || {};
   
-  // Use navigation sections from settings or defaults
+  // Translations for footer
+  const translations = {
+    en: {
+      getStarted: "GET STARTED",
+      launchPlatform: "Launch Platform",
+      company: "COMPANY",
+      about: "About",
+      team: "Team",
+      platform: "PLATFORM",
+      projects: "Projects",
+      roadmap: "Roadmap",
+      partners: "Partners",
+      other: "OTHER",
+      documentation: "Documentation",
+      support: "Support",
+      address: "ADDRESS",
+      allRightsReserved: "All rights reserved.",
+      regulatoryDisclosures: "Regulatory Disclosures",
+      privacyNotice: "Privacy Notice",
+      security: "Security"
+    },
+    ru: {
+      getStarted: "НАЧАТЬ",
+      launchPlatform: "Запустить платформу",
+      company: "КОМПАНИЯ",
+      about: "О нас",
+      team: "Команда",
+      platform: "ПЛАТФОРМА",
+      projects: "Проекты",
+      roadmap: "Дорожная карта",
+      partners: "Партнёры",
+      other: "ДРУГОЕ",
+      documentation: "Документация",
+      support: "Поддержка",
+      address: "АДРЕС",
+      allRightsReserved: "Все права защищены.",
+      regulatoryDisclosures: "Нормативные раскрытия",
+      privacyNotice: "Политика конфиденциальности",
+      security: "Безопасность"
+    }
+  };
+
+  const t = translations[language];
+  
+  // Use navigation sections from settings or defaults with translations
   const navSections = settings.navigation_sections || [
     {
-      title: "COMPANY",
+      title: t.company,
       links: [
-        { name: "About", url: "#about" },
-        { name: "Team", url: "#team" }
+        { name: t.about, url: "#about" },
+        { name: t.team, url: "#team" }
       ]
     },
     {
-      title: "PLATFORM",
+      title: t.platform,
       links: [
-        { name: "Projects", url: "#projects" },
-        { name: "Roadmap", url: "#roadmap" },
-        { name: "Partners", url: "#partners" }
+        { name: t.projects, url: "#projects" },
+        { name: t.roadmap, url: "#roadmap" },
+        { name: t.partners, url: "#partners" }
       ]
     },
     {
-      title: "OTHER",
+      title: t.other,
       links: [
-        { name: "Documentation", url: "#" },
-        { name: "Support", url: "#" }
+        { name: t.documentation, url: "#" },
+        { name: t.support, url: "#" }
       ]
     }
   ];

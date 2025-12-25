@@ -5790,8 +5790,8 @@ const PlatformOverview = ({ platformSettings }) => {
                 </div>
               </div>
               <div className="dashboard-meta">
-                <span className="meta-item">👥 {settings.community || '45.6K'}</span>
-                <span className="meta-item">📊 {settings.visits || '25'}</span>
+                <span className="meta-item">👥 {settings.community?.value || '45.6K'}</span>
+                <span className="meta-item">📊 {settings.visits?.value || '25'}</span>
               </div>
             </div>
 

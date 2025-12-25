@@ -5769,7 +5769,7 @@ const PlatformOverview = ({ platformSettings }) => {
             <div className="dashboard-header">
               <div className="dashboard-brand">
                 <div className="brand-logo">
-                  <span className="text-white font-bold text-lg">F</span>
+                  <img src="/logo.svg" alt="FOMO" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
                 </div>
                 <div>
                   <span className="brand-name">FOMO Platform</span>

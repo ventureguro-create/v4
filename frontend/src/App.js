@@ -5711,27 +5711,37 @@ const PlatformOverview = ({ platformSettings }) => {
   const services = settings.services_list || defaults.services_list;
   const bottomStats = settings.bottom_stats || defaults.bottom_stats;
 
-  const MiniChart = ({ data, color = '#10b981' }) => (
-    <svg viewBox="0 0 100 40" className="mini-chart-svg">
-      <defs>
-        <linearGradient id={`gradient-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={color} stopOpacity="0.3" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path
-        d={`M 0 ${40 - data[0] * 0.4} ${data.map((d, i) => `L ${(i / (data.length - 1)) * 100} ${40 - d * 0.4}`).join(' ')} L 100 40 L 0 40 Z`}
-        fill={`url(#gradient-${color})`}
-      />
-      <path
-        d={`M 0 ${40 - data[0] * 0.4} ${data.map((d, i) => `L ${(i / (data.length - 1)) * 100} ${40 - d * 0.4}`).join(' ')}`}
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+  const MiniChart = ({ data, color = '#10b981' }) => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return (
+        <svg viewBox="0 0 100 40" className="mini-chart-svg">
+          <line x1="0" y1="20" x2="100" y2="20" stroke={color} strokeWidth="1" opacity="0.3" />
+        </svg>
+      );
+    }
+    
+    return (
+      <svg viewBox="0 0 100 40" className="mini-chart-svg">
+        <defs>
+          <linearGradient id={`gradient-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor={color} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={color} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          d={`M 0 ${40 - data[0] * 0.4} ${data.map((d, i) => `L ${(i / (data.length - 1)) * 100} ${40 - d * 0.4}`).join(' ')} L 100 40 L 0 40 Z`}
+          fill={`url(#gradient-${color})`}
+        />
+        <path
+          d={`M 0 ${40 - data[0] * 0.4} ${data.map((d, i) => `L ${(i / (data.length - 1)) * 100} ${40 - d * 0.4}`).join(' ')}`}
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  };
 
   return (
     <section id="platform" className="py-20 bg-gradient-to-b from-gray-50 to-white" data-testid="platform-overview">

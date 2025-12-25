@@ -2366,6 +2366,146 @@ async def delete_earlyland_opportunity(opportunity_id: str):
     return {"message": "Opportunity deleted"}
 
 
+# ==================== NAVIGATION SETTINGS ====================
+
+class NavigationItem(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid4()))
+    key: str
+    label_ru: str
+    label_en: str
+    href: str
+    order: int = 0
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class NavigationItemCreate(BaseModel):
+    key: str
+    label_ru: str
+    label_en: str
+    href: str
+    order: int = 0
+    is_active: bool = True
+
+class NavigationItemUpdate(BaseModel):
+    key: Optional[str] = None
+    label_ru: Optional[str] = None
+    label_en: Optional[str] = None
+    href: Optional[str] = None
+    order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+@api_router.get("/navigation-items", response_model=List[NavigationItem])
+async def get_navigation_items():
+    items = await db.navigation_items.find({"is_active": True}, {"_id": 0}).sort("order", 1).to_list(100)
+    if not items:
+        # Default navigation items
+        default_items = [
+            {
+                "id": str(uuid4()),
+                "key": "about",
+                "label_ru": "О нас",
+                "label_en": "About",
+                "href": "#about",
+                "order": 1,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "key": "platform",
+                "label_ru": "Платформа",
+                "label_en": "Platform",
+                "href": "#platform",
+                "order": 2,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "key": "projects",
+                "label_ru": "Проекты",
+                "label_en": "Projects",
+                "href": "#projects",
+                "order": 3,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "key": "roadmap",
+                "label_ru": "Дорожная карта",
+                "label_en": "Roadmap",
+                "href": "#roadmap",
+                "order": 4,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "key": "team",
+                "label_ru": "Команда",
+                "label_en": "Team",
+                "href": "#team",
+                "order": 5,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid4()),
+                "key": "partners",
+                "label_ru": "Партнёры",
+                "label_en": "Partners",
+                "href": "#partners",
+                "order": 6,
+                "is_active": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        for item in default_items:
+            await db.navigation_items.insert_one(item)
+        items = default_items
+    return items
+
+@api_router.post("/navigation-items", response_model=NavigationItem)
+async def create_navigation_item(item: NavigationItemCreate):
+    new_item = {
+        "id": str(uuid4()),
+        **item.model_dump(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.navigation_items.insert_one(new_item)
+    created = await db.navigation_items.find_one({"id": new_item["id"]}, {"_id": 0})
+    return created
+
+@api_router.put("/navigation-items/{item_id}", response_model=NavigationItem)
+async def update_navigation_item(item_id: str, update: NavigationItemUpdate):
+    update_dict = {k: v for k, v in update.model_dump().items() if v is not None}
+    if update_dict:
+        update_dict['updated_at'] = datetime.now(timezone.utc).isoformat()
+        await db.navigation_items.update_one({"id": item_id}, {"$set": update_dict})
+    updated = await db.navigation_items.find_one({"id": item_id}, {"_id": 0})
+    if not updated:
+        raise HTTPException(status_code=404, detail="Navigation item not found")
+    return updated
+
+@api_router.delete("/navigation-items/{item_id}")
+async def delete_navigation_item(item_id: str):
+    result = await db.navigation_items.delete_one({"id": item_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Navigation item not found")
+    return {"message": "Navigation item deleted"}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 

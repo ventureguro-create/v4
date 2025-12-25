@@ -7576,7 +7576,7 @@ const Footer = ({ footerSettings }) => {
 
           {/* ADDRESS Section */}
           <div className="footer-column">
-            <h3 className="footer-column-title">ADDRESS</h3>
+            <h3 className="footer-column-title">{t.address}</h3>
             <address className="footer-address">
               <p>{settings.company_name || 'FOMO'}</p>
               {settings.company_address ? (

@@ -5581,37 +5581,72 @@ const HeroSection = ({ heroSettings }) => {
 
 // About Section
 const AboutSection = () => {
-  const features = [
-    { icon: 'diamond', title: 'Community-Driven', description: 'Every user influences the project through voting and social engagement.', color: 'emerald' },
-    { icon: 'clock', title: '24/7 Support', description: 'Our support never stops. We are here offering guidance every step.', color: 'teal' },
-    { icon: 'lightning', title: 'Fast & Efficient', description: 'Launch your project quickly with FOMO tools and support.', color: 'cyan' },
-    { icon: 'shield', title: 'Secure & Reliable', description: 'All transactions via secure smart contracts for max protection.', color: 'violet' },
-  ];
+  const { language } = useLanguage();
+  
+  const content = {
+    en: {
+      badge: 'About Us',
+      title: 'What is',
+      titleHighlight: 'FOMO',
+      subtitle: 'A cutting-edge platform reshaping how users interact with the crypto world',
+      description: 'FOMO is a cutting-edge platform built to reshape the way users interact with the cryptoworld. Our goal is to create a single, comprehensive ecosystem that combines',
+      socialEngagement: 'social engagement',
+      dataAnalytics: 'data analytics',
+      seamlessAccess: 'seamless access',
+      descriptionEnd: 'to crypto projects, NFTs, funds, and more.',
+      downloadButton: 'Download Whitepaper',
+      features: [
+        { icon: 'diamond', title: 'Community-Driven', description: 'Every user influences the project through voting and social engagement.', color: 'emerald' },
+        { icon: 'clock', title: '24/7 Support', description: 'Our support never stops. We are here offering guidance every step.', color: 'teal' },
+        { icon: 'lightning', title: 'Fast & Efficient', description: 'Launch your project quickly with FOMO tools and support.', color: 'cyan' },
+        { icon: 'shield', title: 'Secure & Reliable', description: 'All transactions via secure smart contracts for max protection.', color: 'violet' },
+      ]
+    },
+    ru: {
+      badge: 'О нас',
+      title: 'Что такое',
+      titleHighlight: 'FOMO',
+      subtitle: 'Инновационная платформа, меняющая взаимодействие пользователей с криптомиром',
+      description: 'FOMO — это инновационная платформа, созданная для трансформации взаимодействия пользователей с криптомиром. Наша цель — создать единую комплексную экосистему, которая объединяет',
+      socialEngagement: 'социальное взаимодействие',
+      dataAnalytics: 'аналитику данных',
+      seamlessAccess: 'удобный доступ',
+      descriptionEnd: 'к крипто-проектам, NFT, фондам и многому другому.',
+      downloadButton: 'Скачать Whitepaper',
+      features: [
+        { icon: 'diamond', title: 'Сообщество в основе', description: 'Каждый пользователь влияет на проект через голосование и социальное взаимодействие.', color: 'emerald' },
+        { icon: 'clock', title: 'Поддержка 24/7', description: 'Наша поддержка никогда не останавливается. Мы всегда рядом, предлагая помощь на каждом этапе.', color: 'teal' },
+        { icon: 'lightning', title: 'Быстро и эффективно', description: 'Запускайте свой проект быстро с инструментами и поддержкой FOMO.', color: 'cyan' },
+        { icon: 'shield', title: 'Безопасно и надежно', description: 'Все транзакции через защищенные смарт-контракты для максимальной защиты.', color: 'violet' },
+      ]
+    }
+  };
 
+  const t = content[language];
+  
   return (
     <section id="about" className="py-16 bg-white" data-testid="about-section">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-gray-100 rounded-full text-gray-600 text-sm font-medium mb-4">About Us</span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">What is <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">FOMO</span>?</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">A cutting-edge platform reshaping how users interact with the crypto world</p>
+          <span className="inline-block px-4 py-2 bg-gray-100 rounded-full text-gray-600 text-sm font-medium mb-4">{t.badge}</span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">{t.title} <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">{t.titleHighlight}</span>?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           <div>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
-              FOMO is a cutting-edge platform built to reshape the way users interact with the cryptoworld. 
-              Our goal is to create a single, comprehensive ecosystem that combines <strong className="text-gray-900">social engagement</strong>, 
-              <strong className="text-gray-900">data analytics</strong>, and <strong className="text-gray-900">seamless access</strong> to crypto projects, NFTs, funds, and more.
+              {t.description} <strong className="text-gray-900">{t.socialEngagement}</strong>, 
+              <strong className="text-gray-900"> {t.dataAnalytics}</strong> {language === 'ru' ? 'и' : ', and'} <strong className="text-gray-900">{t.seamlessAccess}</strong> {t.descriptionEnd}
             </p>
             <button className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-xl transition-colors">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-              Download Whitepaper
+              {t.downloadButton}
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {features.map((feature, index) => (
+            {t.features.map((feature, index) => (
               <div key={index} className="feature-card-animated" data-testid={`feature-card-${index}`}>
                 <div className={`feature-icon-animated ${feature.color}`}>
                   <AnimatedIcon type={feature.icon} />

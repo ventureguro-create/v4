@@ -6016,52 +6016,112 @@ const PlatformOverview = ({ platformSettings }) => {
 
             {/* Arena Predictions Tab */}
             {activeTab === 'arena' && (
-              <div className="arena-content">
-                <div className="arena-header">
-                  <h3 className="text-xl font-bold mb-2">FOMO Arena</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {language === 'ru' 
-                      ? 'Предсказывайте исходы TGE и крипто-событий' 
-                      : 'Predict TGE outcomes and crypto events'}
-                  </p>
+              <div className="arena-section">
+                {/* Arena Header */}
+                <div className="arena-header-block">
+                  <div className="arena-title-group">
+                    <h3 className="section-title">
+                      <span className="title-icon">🎯</span> FOMO Arena
+                    </h3>
+                    <p className="section-subtitle">
+                      {language === 'ru' 
+                        ? 'Предсказывайте будущее крипто-проектов и зарабатывайте' 
+                        : 'Predict crypto project outcomes and earn'}
+                    </p>
+                  </div>
+                  <div className="arena-stats">
+                    <div className="arena-stat-item">
+                      <div className="stat-value">$2.4M</div>
+                      <div className="stat-label">{language === 'ru' ? 'Объем' : 'Volume'}</div>
+                    </div>
+                    <div className="arena-stat-item">
+                      <div className="stat-value">1,234</div>
+                      <div className="stat-label">{language === 'ru' ? 'Трейдеры' : 'Traders'}</div>
+                    </div>
+                    <div className="arena-stat-item">
+                      <div className="stat-value">156</div>
+                      <div className="stat-label">{language === 'ru' ? 'Рынки' : 'Markets'}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="arena-predictions-grid">
-                  {arenaPredictions.slice(0, 6).map((pred) => (
-                    <div key={pred.id} className="arena-prediction-card">
-                      <div className="pred-header">
-                        <span className="pred-category">{pred.category}</span>
-                        {pred.is_featured && <span className="pred-featured">⭐ Featured</span>}
+
+                {/* Arena Filter Tabs */}
+                <div className="arena-tabs">
+                  <button className="arena-tab active">{language === 'ru' ? 'Все рынки' : 'All Markets'}</button>
+                  <button className="arena-tab">{language === 'ru' ? 'TGE' : 'TGE'}</button>
+                  <button className="arena-tab">{language === 'ru' ? 'Цена' : 'Price'}</button>
+                  <button className="arena-tab">{language === 'ru' ? 'Airdrop' : 'Airdrop'}</button>
+                  <button className="arena-tab">{language === 'ru' ? 'События' : 'Events'}</button>
+                </div>
+
+                {/* Arena Markets Grid */}
+                <div className="arena-markets-grid">
+                  {arenaPredictions.length > 0 ? arenaPredictions.slice(0, 6).map((pred) => (
+                    <div key={pred.id} className="arena-market-card">
+                      <div className="market-header">
+                        <div className="market-category-badge">{pred.category}</div>
+                        {pred.is_featured && <div className="market-featured">⭐ Featured</div>}
                       </div>
-                      <div className="pred-body">
-                        <h4 className="pred-title">{pred.title}</h4>
-                        {pred.subtitle && <p className="pred-subtitle">{pred.subtitle}</p>}
+                      
+                      <div className="market-content">
+                        <h4 className="market-question">{pred.title}</h4>
+                        {pred.subtitle && <p className="market-subtitle">{pred.subtitle}</p>}
+                        
                         {pred.tge_date && (
-                          <div className="pred-tge-info">
-                            <span>TGE: {new Date(pred.tge_date).toLocaleDateString()}</span>
-                            {pred.market_cap && <span>Cap: {pred.market_cap}</span>}
-                            {pred.hype_level && <span>🔥 Hype: {pred.hype_level}%</span>}
+                          <div className="market-metadata">
+                            <div className="metadata-item">
+                              <span className="metadata-icon">📅</span>
+                              <span>TGE: {new Date(pred.tge_date).toLocaleDateString()}</span>
+                            </div>
+                            {pred.market_cap && (
+                              <div className="metadata-item">
+                                <span className="metadata-icon">💎</span>
+                                <span>{pred.market_cap}</span>
+                              </div>
+                            )}
+                            {pred.hype_level && (
+                              <div className="metadata-item">
+                                <span className="metadata-icon">🔥</span>
+                                <span>Hype: {pred.hype_level}%</span>
+                              </div>
+                            )}
                           </div>
                         )}
-                        <div className="pred-votes">
-                          <button className="vote-btn yes">
-                            👍 Yes ({pred.yes_votes})
+                        
+                        {/* Prediction Outcome Buttons */}
+                        <div className="market-outcomes">
+                          <button className="outcome-btn yes">
+                            <div className="outcome-label">YES</div>
+                            <div className="outcome-percentage">
+                              {((pred.yes_votes / (pred.yes_votes + pred.no_votes || 1)) * 100).toFixed(0)}%
+                            </div>
+                            <div className="outcome-votes">{pred.yes_votes} votes</div>
                           </button>
-                          <button className="vote-btn no">
-                            👎 No ({pred.no_votes})
+                          <button className="outcome-btn no">
+                            <div className="outcome-label">NO</div>
+                            <div className="outcome-percentage">
+                              {((pred.no_votes / (pred.yes_votes + pred.no_votes || 1)) * 100).toFixed(0)}%
+                            </div>
+                            <div className="outcome-votes">{pred.no_votes} votes</div>
                           </button>
                         </div>
-                        <div className="pred-creator">
-                          <span>by {pred.creator_name}</span>
+                        
+                        <div className="market-footer">
+                          <div className="market-volume">
+                            <span className="volume-icon">📊</span>
+                            <span className="volume-text">Vol: ${((pred.yes_votes + pred.no_votes) * 12.5).toFixed(0)}</span>
+                          </div>
+                          <div className="market-creator">by {pred.creator_name}</div>
                         </div>
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="empty-arena">
+                      <div className="empty-icon">🎯</div>
+                      <p>{language === 'ru' ? 'Нет активных рынков' : 'No active markets'}</p>
+                    </div>
+                  )}
                 </div>
-                {arenaPredictions.length === 0 && (
-                  <div className="empty-state">
-                    <p>{language === 'ru' ? 'Нет активных предсказаний' : 'No active predictions'}</p>
-                  </div>
-                )}
               </div>
             )}
 

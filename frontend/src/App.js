@@ -1246,7 +1246,6 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
   const [editingCard, setEditingCard] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({ 
-    title_ru: '', 
     title_en: '', 
     link: '', 
     image_url: '', 
@@ -1256,7 +1255,6 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
 
   const resetForm = () => {
     setFormData({ 
-      title_ru: '', 
       title_en: '', 
       link: '', 
       image_url: '', 
@@ -1269,8 +1267,7 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
   const handleEdit = (card) => {
     setEditingCard(card);
     setFormData({ 
-      title_ru: card.title_ru || '', 
-      title_en: card.title_en || '', 
+      title_en: card.title_en || card.title_ru || '', 
       link: card.link, 
       image_url: card.image_url, 
       order: card.order 
@@ -1307,14 +1304,20 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title_ru || !formData.title_en || !formData.link || !formData.image_url) {
-      setError('All fields are required (RU and EN titles)');
+    // Use English title for both ru and en fields for backend compatibility
+    if (!formData.title_en || !formData.link || !formData.image_url) {
+      setError('All fields are required');
       return;
     }
+    
+    const submitData = {
+      ...formData,
+      title_ru: formData.title_en // Copy EN to RU for backend compatibility
+    };
 
     try {
       if (editingCard) {
-        await axios.put(`${API}/drawer-cards/${editingCard.id}`, formData);
+        await axios.put(`${API}/drawer-cards/${editingCard.id}`, submitData);
       } else {
         await axios.post(`${API}/drawer-cards`, formData);
       }

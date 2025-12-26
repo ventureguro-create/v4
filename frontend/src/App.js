@@ -18,15 +18,15 @@ export const useLanguage = () => {
 };
 
 const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(() => {
-    // Load from localStorage or default to Russian
-    return localStorage.getItem('language') || 'ru';
-  });
+  // English only - no language switching
+  const [language] = useState('en');
 
   const toggleLanguage = () => {
-    const newLang = language === 'ru' ? 'en' : 'ru';
-    setLanguage(newLang);
-    localStorage.setItem('language', newLang);
+    // Disabled - English only
+  };
+
+  const setLanguage = () => {
+    // Disabled - English only
   };
 
   return (

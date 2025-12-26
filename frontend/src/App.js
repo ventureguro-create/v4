@@ -2692,10 +2692,10 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
       
       {/* Company Information */}
       <div className="footer-admin-section">
-        <h3>🏢 Информация о компании</h3>
+        <h3>🏢 Company Information</h3>
         <div className="form-row">
           <div className="form-group">
-            <label>Название компании</label>
+            <label>Company Name</label>
             <input
               type="text"
               value={settings.company_name}

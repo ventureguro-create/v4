@@ -1623,84 +1623,49 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
   return (
     <div className="admin-content">
       <div className="admin-info">
-        <strong>📐 Рекомендуемый размер изображения:</strong> 400x400px (квадрат)<br/>
-        <strong>📁 Формат:</strong> PNG или WebP для лучшего качества<br/>
-        <strong>👥 Соцсети:</strong> Выберите до 4 соцсетей для отображения
+        <strong>📐 Recommended image size:</strong> 400x400px (square)<br/>
+        <strong>📁 Format:</strong> PNG or WebP for best quality<br/>
+        <strong>👥 Socials:</strong> Select up to 4 social links to display
       </div>
 
       {error && <div className="admin-error">{error}</div>}
 
       <form onSubmit={handleSubmit} className="admin-form">
-        <div className="form-row">
-          <div className="form-group">
-            <label>🇷🇺 Имя (Русский) *</label>
-            <input
-              type="text"
-              value={formData.name_ru}
-              onChange={e => setFormData(prev => ({ ...prev, name_ru: e.target.value }))}
-              placeholder="Алекс Джонсон"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>🇬🇧 Имя (English) *</label>
-            <input
-              type="text"
-              value={formData.name_en}
-              onChange={e => setFormData(prev => ({ ...prev, name_en: e.target.value }))}
-              placeholder="Alex Johnson"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>🇷🇺 Должность (Русский) *</label>
-            <input
-              type="text"
-              value={formData.position_ru}
-              onChange={e => setFormData(prev => ({ ...prev, position_ru: e.target.value }))}
-              placeholder="Основатель и CEO"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>🇬🇧 Должность (English) *</label>
-            <input
-              type="text"
-              value={formData.position_en}
-              onChange={e => setFormData(prev => ({ ...prev, position_en: e.target.value }))}
-              placeholder="Founder & CEO"
-              required
-            />
-          </div>
-        </div>
-
         <div className="form-group">
-          <label>🇷🇺 Биография (Русский) *</label>
-          <textarea
-            value={formData.bio_ru}
-            onChange={e => setFormData(prev => ({ ...prev, bio_ru: e.target.value }))}
-            placeholder="Расскажите о члене команды на русском..."
-            rows={4}
+          <label>Name *</label>
+          <input
+            type="text"
+            value={formData.name_en}
+            onChange={e => setFormData(prev => ({ ...prev, name_en: e.target.value }))}
+            placeholder="Alex Johnson"
             required
           />
         </div>
 
         <div className="form-group">
-          <label>🇬🇧 Биография (English) *</label>
+          <label>Position *</label>
+          <input
+            type="text"
+            value={formData.position_en}
+            onChange={e => setFormData(prev => ({ ...prev, position_en: e.target.value }))}
+            placeholder="Founder & CEO"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Biography *</label>
           <textarea
             value={formData.bio_en}
             onChange={e => setFormData(prev => ({ ...prev, bio_en: e.target.value }))}
-            placeholder="Tell about the team member in English..."
+            placeholder="Tell about the team member..."
             rows={4}
             required
           />
         </div>
 
         <div className="form-group">
-          <label>Тип члена команды</label>
+          <label>Member Type</label>
           <select
             value={formData.member_type}
             onChange={e => setFormData(prev => ({ ...prev, member_type: e.target.value }))}
@@ -1713,11 +1678,11 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
               background: 'white'
             }}
           >
-            <option value="main">Основная команда (большие карточки с био)</option>
-            <option value="team_member">Team Members (маленькие карточки)</option>
+            <option value="main">Main Team (large cards with bio)</option>
+            <option value="team_member">Team Members (small cards)</option>
           </select>
           <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
-            💡 Main - отображается в слайдере с полной информацией. Team Members - компактные карточки в сетке.
+            💡 Main - displayed in slider with full info. Team Members - compact cards in grid.
           </p>
         </div>
 

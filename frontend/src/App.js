@@ -1364,25 +1364,15 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
   return (
     <div className="admin-content">
       <div className="admin-info">
-        <strong>📐 Рекомендуемый размер изображения:</strong> 1200x800px (соотношение 3:2)<br/>
-        <strong>📁 Формат:</strong> PNG или WebP для лучшего качества
+        <strong>📐 Recommended image size:</strong> 1200x800px (3:2 ratio)<br/>
+        <strong>📁 Format:</strong> PNG or WebP for best quality
       </div>
 
       {error && <div className="admin-error">{error}</div>}
 
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="form-group">
-          <label>🇷🇺 Название проекта (Русский)</label>
-          <input
-            type="text"
-            value={formData.title_ru}
-            onChange={e => setFormData(prev => ({ ...prev, title_ru: e.target.value }))}
-            placeholder="Например: Платформа CryptoVault"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>🇬🇧 Название проекта (English)</label>
+          <label>Project Title</label>
           <input
             type="text"
             value={formData.title_en}
@@ -1392,7 +1382,7 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
           />
         </div>
         <div className="form-group">
-          <label>URL ссылка</label>
+          <label>URL Link</label>
           <input
             type="url"
             value={formData.link}
@@ -1402,7 +1392,7 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
           />
         </div>
         <div className="form-group">
-          <label>Изображение</label>
+          <label>Image</label>
           <div className="image-upload">
             <input
               type="file"
@@ -1412,9 +1402,9 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
               disabled={isUploading}
             />
             <label htmlFor="image-upload" className="upload-btn">
-              {isUploading ? '⏳ Загрузка...' : '📤 Выбрать изображение'}
+              {isUploading ? '⏳ Uploading...' : '📤 Choose Image'}
             </label>
-            <p className="text-xs text-gray-500 mt-1">или введите URL изображения:</p>
+            <p className="text-xs text-gray-500 mt-1">or enter image URL:</p>
             <input
               type="text"
               value={formData.image_url}

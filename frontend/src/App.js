@@ -2443,7 +2443,7 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
             </div>
             <div className="form-group form-actions">
               <button onClick={handleAddPartner} className="btn-primary" disabled={uploading}>
-                ➕ Добавить
+                ➕ Add
               </button>
             </div>
           </div>
@@ -2466,39 +2466,23 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
                 )}
               </div>
               <div className="partner-admin-info">
-                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🇷🇺 Название (Русский)</label>
+                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>Name</label>
                 <input
                   type="text"
-                  value={partner.name_ru || ''}
-                  onChange={e => handleUpdatePartner(partner.id, 'name_ru', e.target.value)}
+                  value={partner.name_en || partner.name_ru || ''}
+                  onChange={e => { handleUpdatePartner(partner.id, 'name_en', e.target.value); handleUpdatePartner(partner.id, 'name_ru', e.target.value); }}
                   className="partner-name-input"
                   style={{marginBottom: '8px'}}
                 />
-                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🇬🇧 Название (English)</label>
-                <input
-                  type="text"
-                  value={partner.name_en || ''}
-                  onChange={e => handleUpdatePartner(partner.id, 'name_en', e.target.value)}
-                  className="partner-name-input"
-                  style={{marginBottom: '8px'}}
-                />
-                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🇷🇺 Описание (Русский)</label>
+                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>Description</label>
                 <textarea
-                  value={partner.description_ru || ''}
-                  onChange={e => handleUpdatePartner(partner.id, 'description_ru', e.target.value)}
+                  value={partner.description_en || partner.description_ru || ''}
+                  onChange={e => { handleUpdatePartner(partner.id, 'description_en', e.target.value); handleUpdatePartner(partner.id, 'description_ru', e.target.value); }}
                   className="partner-desc-input"
                   rows={2}
                   style={{marginBottom: '8px'}}
                 />
-                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🇬🇧 Описание (English)</label>
-                <textarea
-                  value={partner.description_en || ''}
-                  onChange={e => handleUpdatePartner(partner.id, 'description_en', e.target.value)}
-                  className="partner-desc-input"
-                  rows={2}
-                  style={{marginBottom: '8px'}}
-                />
-                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🔗 Ссылка</label>
+                <label style={{fontSize: '11px', color: '#6b7280', marginBottom: '4px'}}>🔗 Link</label>
                 <input
                   type="text"
                   value={partner.link}
@@ -2510,7 +2494,7 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
               <button
                 onClick={() => handleDeletePartner(partner.id)}
                 className="partner-delete-btn"
-                title="Удалить"
+                title="Delete"
               >
                 🗑️
               </button>

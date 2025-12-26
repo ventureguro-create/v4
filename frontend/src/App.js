@@ -2574,6 +2574,7 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
         navigation_sections: footerSettings.navigation_sections || [],
         cta_button_text: footerSettings.cta_button_text || 'Launch Platform →',
         cta_button_url: footerSettings.cta_button_url || '#',
+        whitepaper_url: footerSettings.whitepaper_url || '',
         regulatory_disclosures_url: footerSettings.regulatory_disclosures_url || '#',
         privacy_notice_url: footerSettings.privacy_notice_url || '#',
         security_url: footerSettings.security_url || '#',
@@ -2589,11 +2590,11 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
     setSaving(true);
     try {
       await axios.put(`${API}/footer-settings`, settings);
-      setMessage('✅ Настройки футера сохранены!');
+      setMessage('✅ Footer settings saved!');
       onFooterUpdate();
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('❌ Ошибка сохранения');
+      setMessage('❌ Save error');
       console.error(err);
     } finally {
       setSaving(false);

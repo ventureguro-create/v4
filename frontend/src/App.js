@@ -5804,6 +5804,129 @@ const PlatformOverview = ({ platformSettings }) => {
   const services = settings.services_list || defaults.services_list;
   const bottomStats = settings.bottom_stats || defaults.bottom_stats;
 
+  // SVG Icons for Service Modules
+  const ServiceIcons = {
+    dashboard: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <rect x="4" y="4" width="16" height="12" rx="2" fill={color} opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.5;0.3" dur="2s" repeatCount="indefinite" />
+        </rect>
+        <rect x="4" y="20" width="16" height="24" rx="2" fill={color} opacity="0.6" />
+        <rect x="24" y="4" width="20" height="18" rx="2" fill={color} opacity="0.5" />
+        <rect x="24" y="26" width="20" height="18" rx="2" fill={color} opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="1.8s" repeatCount="indefinite" />
+        </rect>
+        <path d="M8 32L12 28L16 30" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round">
+          <animate attributeName="d" values="M8 32L12 28L16 30;M8 30L12 26L16 32;M8 32L12 28L16 30" dur="3s" repeatCount="indefinite" />
+        </path>
+      </svg>
+    ),
+    otc: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <circle cx="16" cy="24" r="10" fill={color} opacity="0.3" />
+        <circle cx="32" cy="24" r="10" fill={color} opacity="0.3" />
+        <path d="M14 20L14 28M18 24L10 24" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+        <text x="30" y="28" fill={color} fontSize="14" fontWeight="bold" textAnchor="middle">¥</text>
+        <path d="M22 18L26 18M22 30L26 30" stroke={color} strokeWidth="2" strokeLinecap="round">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" />
+        </path>
+        <animateTransform attributeName="transform" type="translate" values="0,0;2,0;0,0" dur="2s" repeatCount="indefinite" />
+      </svg>
+    ),
+    p2p: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <circle cx="12" cy="24" r="8" fill={color} opacity="0.4" />
+        <circle cx="36" cy="24" r="8" fill={color} opacity="0.4" />
+        <path d="M20 20L28 20M20 24L28 24M20 28L28 28" stroke={color} strokeWidth="2" strokeLinecap="round">
+          <animate attributeName="stroke-dasharray" values="0,100;100,0;0,100" dur="2s" repeatCount="indefinite" />
+        </path>
+        <circle cx="12" cy="24" r="4" fill={color}>
+          <animate attributeName="r" values="4;5;4" dur="1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="36" cy="24" r="4" fill={color}>
+          <animate attributeName="r" values="4;5;4" dur="1.5s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+    ),
+    predictions: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <circle cx="24" cy="24" r="18" stroke={color} strokeWidth="2" fill="none" opacity="0.3" />
+        <circle cx="24" cy="24" r="12" stroke={color} strokeWidth="2" fill="none" opacity="0.5" />
+        <circle cx="24" cy="24" r="6" fill={color} opacity="0.6" />
+        <circle cx="24" cy="24" r="2" fill={color}>
+          <animate attributeName="r" values="2;3;2" dur="0.8s" repeatCount="indefinite" />
+        </circle>
+        <path d="M24 6V12" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        <path d="M24 36V42" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        <path d="M6 24H12" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        <path d="M36 24H42" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+    parsing: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <circle cx="20" cy="20" r="12" stroke={color} strokeWidth="3" fill="none" opacity="0.6">
+          <animate attributeName="r" values="12;14;12" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <path d="M30 30L42 42" stroke={color} strokeWidth="4" strokeLinecap="round">
+          <animate attributeName="stroke-width" values="4;5;4" dur="1s" repeatCount="indefinite" />
+        </path>
+        <path d="M14 20H26M20 14V26" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+      </svg>
+    ),
+    sentiment: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <path d="M4 36L12 24L20 28L28 16L36 22L44 12" stroke={color} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <animate attributeName="d" values="M4 36L12 24L20 28L28 16L36 22L44 12;M4 32L12 28L20 20L28 24L36 16L44 18;M4 36L12 24L20 28L28 16L36 22L44 12" dur="3s" repeatCount="indefinite" />
+        </path>
+        <circle cx="44" cy="12" r="4" fill={color}>
+          <animate attributeName="cy" values="12;18;12" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <path d="M4 40L44 40" stroke={color} strokeWidth="2" opacity="0.3" />
+      </svg>
+    ),
+    earlyland: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <ellipse cx="24" cy="40" rx="12" ry="4" fill={color} opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="0.8s" repeatCount="indefinite" />
+        </ellipse>
+        <path d="M24 8L30 24H18L24 8Z" fill={color} opacity="0.8">
+          <animate attributeName="d" values="M24 8L30 24H18L24 8Z;M24 4L32 26H16L24 4Z;M24 8L30 24H18L24 8Z" dur="1s" repeatCount="indefinite" />
+        </path>
+        <rect x="18" y="24" width="12" height="14" rx="2" fill={color} />
+        <path d="M16 38L12 44H20L16 38Z" fill="#f97316" />
+        <path d="M32 38L36 44H28L32 38Z" fill="#f97316" />
+        <circle cx="24" cy="18" r="3" fill="#fff" opacity="0.8" />
+      </svg>
+    ),
+    nft: ({ color = 'currentColor' }) => (
+      <svg viewBox="0 0 48 48" fill="none" className="service-svg-icon">
+        <rect x="6" y="6" width="36" height="36" rx="4" stroke={color} strokeWidth="2" fill="none" opacity="0.3" />
+        <rect x="10" y="10" width="28" height="28" rx="2" fill={color} opacity="0.2" />
+        <path d="M16 26L22 20L28 24L34 18" stroke={color} strokeWidth="2" fill="none" strokeLinecap="round">
+          <animate attributeName="d" values="M16 26L22 20L28 24L34 18;M16 22L22 28L28 20L34 26;M16 26L22 20L28 24L34 18" dur="4s" repeatCount="indefinite" />
+        </path>
+        <circle cx="34" cy="18" r="3" fill={color}>
+          <animate attributeName="cy" values="18;26;18" dur="4s" repeatCount="indefinite" />
+        </circle>
+        <rect x="14" y="30" width="20" height="4" rx="1" fill={color} opacity="0.4" />
+      </svg>
+    )
+  };
+
+  // Map module names to icons
+  const getServiceIcon = (moduleName) => {
+    const name = (moduleName || '').toLowerCase();
+    if (name.includes('дашборд') || name.includes('dashboard')) return ServiceIcons.dashboard;
+    if (name.includes('otc') || name.includes('маркет')) return ServiceIcons.otc;
+    if (name.includes('p2p') || name.includes('обмен')) return ServiceIcons.p2p;
+    if (name.includes('прогноз') || name.includes('prediction')) return ServiceIcons.predictions;
+    if (name.includes('парсинг') || name.includes('parsing')) return ServiceIcons.parsing;
+    if (name.includes('сентимент') || name.includes('sentiment')) return ServiceIcons.sentiment;
+    if (name.includes('early') || name.includes('land')) return ServiceIcons.earlyland;
+    if (name.includes('nft') || name.includes('стратегия')) return ServiceIcons.nft;
+    return ServiceIcons.dashboard; // default
+  };
+
   const MiniChart = ({ data, color = '#10b981' }) => {
     if (!data || !Array.isArray(data) || data.length === 0) {
       return (

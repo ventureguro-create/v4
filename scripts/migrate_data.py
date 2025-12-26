@@ -63,57 +63,63 @@ async def migrate_team_members():
     # Check if members already exist
     existing = await db.team_members.count_documents({})
     if existing > 0:
-        print(f"  ℹ️  Found {existing} existing team members, skipping...")
-        return
+        print(f"  ⚠️  Found {existing} existing team members, updating them...")
+        await db.team_members.delete_many({})
     
     default_members = [
         {
             "id": str(uuid4()),
-            "name": "Alex Morgan",
             "name_ru": "Алекс Морган",
-            "position": "CEO & Founder",
+            "name_en": "Alex Morgan",
             "position_ru": "CEO и Основатель",
-            "bio": "10+ years in blockchain and crypto trading",
+            "position_en": "CEO & Founder",
             "bio_ru": "10+ лет опыта в блокчейне и крипто-трейдинге",
-            "avatar": None,
+            "bio_en": "10+ years in blockchain and crypto trading",
+            "image_url": "",
             "social_links": {
                 "twitter": "https://twitter.com/alexmorgan",
                 "linkedin": "https://linkedin.com/in/alexmorgan"
             },
+            "displayed_socials": ["twitter", "linkedin"],
+            "member_type": "main",
             "order": 1,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "updated_at": datetime.now(timezone.utc).isoformat()
         },
         {
             "id": str(uuid4()),
-            "name": "Sarah Chen",
             "name_ru": "Сара Чен",
-            "position": "CTO",
+            "name_en": "Sarah Chen",
             "position_ru": "Технический директор",
-            "bio": "Former Google engineer, blockchain expert",
+            "position_en": "CTO",
             "bio_ru": "Бывший инженер Google, эксперт по блокчейну",
-            "avatar": None,
+            "bio_en": "Former Google engineer, blockchain expert",
+            "image_url": "",
             "social_links": {
                 "twitter": "https://twitter.com/sarahchen",
                 "linkedin": "https://linkedin.com/in/sarahchen"
             },
+            "displayed_socials": ["twitter", "linkedin"],
+            "member_type": "main",
             "order": 2,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "updated_at": datetime.now(timezone.utc).isoformat()
         },
         {
             "id": str(uuid4()),
-            "name": "Michael Ross",
             "name_ru": "Майкл Росс",
-            "position": "Head of Product",
+            "name_en": "Michael Ross",
             "position_ru": "Руководитель продукта",
-            "bio": "Ex-Binance, product strategy specialist",
+            "position_en": "Head of Product",
             "bio_ru": "Экс-Binance, специалист по продуктовой стратегии",
-            "avatar": None,
+            "bio_en": "Ex-Binance, product strategy specialist",
+            "image_url": "",
             "social_links": {
                 "twitter": "https://twitter.com/michaelross",
                 "linkedin": "https://linkedin.com/in/michaelross"
             },
+            "displayed_socials": ["twitter", "linkedin"],
+            "member_type": "main",
             "order": 3,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "updated_at": datetime.now(timezone.utc).isoformat()

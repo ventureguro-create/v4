@@ -1747,38 +1747,37 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
             ))}
           </div>
           <p className="text-xs text-gray-500 mt-2">
-            ✓ Отмечено = будет отображаться на карточке (макс. 4)
+            ✓ Checked = will be displayed on card (max. 4)
           </p>
         </div>
 
         <div className="form-actions">
           <button type="submit" className="btn-primary" disabled={isUploading}>
-            {editingMember ? '✅ Обновить' : '➕ Добавить члена команды'}
+            {editingMember ? '✅ Update' : '➕ Add Team Member'}
           </button>
           {editingMember && (
             <button type="button" onClick={resetForm} className="btn-secondary">
-              ❌ Отмена
+              ❌ Cancel
             </button>
           )}
         </div>
       </form>
 
       <div className="admin-cards-list">
-        <h3>Команда ({team.length})</h3>
+        <h3>Team ({team.length})</h3>
         {team.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">Пока нет членов команды</p>
+          <p className="text-gray-500 text-center py-8">No team members yet</p>
         ) : (
           team.map((member, index) => (
             <div key={member.id} className="admin-card-item">
               <div className="card-preview">
-                <img src={member.image_url.startsWith('/') ? `${BACKEND_URL}${member.image_url}` : member.image_url} alt={getLangField(member, 'name')} />
+                <img src={member.image_url?.startsWith('/') ? `${BACKEND_URL}${member.image_url}` : member.image_url} alt={getLangField(member, 'name')} />
               </div>
               <div className="card-info">
-                <strong>🇷🇺 {member.name_ru || 'N/A'}</strong>
-                <strong>🇬🇧 {member.name_en || 'N/A'}</strong>
-                <span className="card-position">🇷🇺 {member.position_ru || 'N/A'} | 🇬🇧 {member.position_en || 'N/A'}</span>
+                <strong>{member.name_en || member.name_ru || 'N/A'}</strong>
+                <span className="card-position">{member.position_en || member.position_ru || 'N/A'}</span>
                 <span className="card-socials-count">
-                  {member.displayed_socials?.length || 0} соцсетей
+                  {member.displayed_socials?.length || 0} socials
                 </span>
               </div>
               <div className="card-actions">
@@ -1808,7 +1807,8 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
   const [settings, setSettings] = useState(platformSettings || {});
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
-  const [activeLang, setActiveLang] = useState('ru'); // 'ru' or 'en'
+  // English only - no language switching needed
+  const activeLang = 'en';
 
   useEffect(() => {
     if (platformSettings) {

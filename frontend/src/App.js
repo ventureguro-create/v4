@@ -3513,7 +3513,7 @@ const HeroAdminContent = () => {
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', color: '#6b7280', marginBottom: '6px' }}>
-              Макс. на кошелёк
+              Max per wallet
             </label>
             <input
               type="number"
@@ -3546,7 +3546,7 @@ const HeroAdminContent = () => {
           cursor: saving ? 'not-allowed' : 'pointer'
         }}
       >
-        {saving ? 'Сохранение...' : 'Сохранить настройки'}
+        {saving ? 'Saving...' : '💾 Save Settings'}
       </button>
     </div>
   );
@@ -3555,9 +3555,8 @@ const HeroAdminContent = () => {
 // ==================== COMMUNITY ADMIN CONTENT ====================
 const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
   const [settings, setSettings] = useState({
-    title_ru: 'Присоединяйся к сообществу',
     title_en: 'Join the Community',
-    description_ru: 'Общайтесь с web3 основателями, разработчиками и крипто-энтузиастами со всего мира.',
+    description_en: 'Connect with web3 founders, developers and crypto enthusiasts from around the world.',
     description_en: 'Connect with web3 founders, developers, and crypto enthusiasts from around the world.',
     socials: [
       { platform: 'twitter', url: 'https://twitter.com', enabled: true },

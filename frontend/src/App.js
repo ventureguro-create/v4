@@ -3181,9 +3181,9 @@ const FAQAdminContent = ({ faqData, onFAQUpdate }) => {
 const HeroAdminContent = () => {
   const [settings, setSettings] = useState({
     stats: [
-      { value: '10K+', label_ru: 'Активных пользователей', label_en: 'Active Users' },
-      { value: '$50M+', label_ru: 'Объём торгов', label_en: 'Trading Volume' },
-      { value: '666', label_ru: 'NFT Коллекция', label_en: 'NFT Collection' },
+      { value: '10K+', label_en: 'Active Users' },
+      { value: '$50M+', label_en: 'Trading Volume' },
+      { value: '666', label_en: 'NFT Collection' },
     ],
     nft_settings: {
       price_per_box: 150,
@@ -3191,6 +3191,11 @@ const HeroAdminContent = () => {
       discount_percent: 10,
       total_supply: 666,
       max_per_wallet: 100
+    },
+    action_buttons: {
+      crypto: { label: 'Crypto', url: '#crypto' },
+      core: { label: 'Core', url: '#core' },
+      utility: { label: 'Utility', url: '#utility' }
     }
   });
   const [saving, setSaving] = useState(false);
@@ -3204,7 +3209,8 @@ const HeroAdminContent = () => {
         if (res.data) {
           setSettings({
             stats: res.data.stats || settings.stats,
-            nft_settings: res.data.nft_settings || settings.nft_settings
+            nft_settings: res.data.nft_settings || settings.nft_settings,
+            action_buttons: res.data.action_buttons || settings.action_buttons
           });
         }
       } catch (err) {
@@ -3231,10 +3237,20 @@ const HeroAdminContent = () => {
     }));
   };
 
+  const handleButtonChange = (buttonKey, field, value) => {
+    setSettings(prev => ({
+      ...prev,
+      action_buttons: {
+        ...prev.action_buttons,
+        [buttonKey]: { ...prev.action_buttons[buttonKey], [field]: value }
+      }
+    }));
+  };
+
   const addStat = () => {
     setSettings(prev => ({
       ...prev,
-      stats: [...prev.stats, { value: '', label_ru: '', label_en: '' }]
+      stats: [...prev.stats, { value: '', label_en: '' }]
     }));
   };
 
@@ -3249,10 +3265,10 @@ const HeroAdminContent = () => {
     setSaving(true);
     try {
       await axios.put(`${API}/hero-settings`, settings);
-      setMessage('Настройки сохранены!');
+      setMessage('Settings saved!');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('Ошибка сохранения');
+      setMessage('Save error');
       console.error(err);
     } finally {
       setSaving(false);
@@ -3260,7 +3276,7 @@ const HeroAdminContent = () => {
   };
 
   if (loading) {
-    return <div className="admin-content" style={{ padding: '40px', textAlign: 'center' }}>Загрузка...</div>;
+    return <div className="admin-content" style={{ padding: '40px', textAlign: 'center' }}>Loading...</div>;
   }
 
   return (
@@ -3270,11 +3286,62 @@ const HeroAdminContent = () => {
           padding: '12px 16px',
           borderRadius: '8px',
           marginBottom: '20px',
-          background: message.includes('Ошибка') ? '#fef2f2' : '#ecfdf5',
-          color: message.includes('Ошибка') ? '#dc2626' : '#059669',
+          background: message.includes('error') ? '#fef2f2' : '#ecfdf5',
+          color: message.includes('error') ? '#dc2626' : '#059669',
           fontWeight: '500'
         }}>{message}</div>
       )}
+
+      {/* Action Buttons Section */}
+      <div style={{ marginBottom: '32px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1f2937', marginBottom: '16px' }}>
+          🔗 Navigation Action Buttons (Crypto, Core, Utility)
+        </h3>
+        <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '16px' }}>
+          Configure links for the action buttons in the header
+        </p>
+        <div style={{ display: 'grid', gap: '16px' }}>
+          {['crypto', 'core', 'utility'].map((key) => (
+            <div key={key} style={{
+              padding: '16px',
+              background: '#f9fafb',
+              borderRadius: '12px',
+              display: 'grid',
+              gridTemplateColumns: '120px 1fr 2fr',
+              gap: '12px',
+              alignItems: 'center'
+            }}>
+              <span style={{ fontWeight: '600', color: '#374151', textTransform: 'capitalize' }}>
+                {key === 'crypto' ? '💰' : key === 'core' ? '⚙️' : '🔧'} {key}
+              </span>
+              <input
+                type="text"
+                value={settings.action_buttons?.[key]?.label || key.charAt(0).toUpperCase() + key.slice(1)}
+                onChange={e => handleButtonChange(key, 'label', e.target.value)}
+                placeholder="Button Label"
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '14px'
+                }}
+              />
+              <input
+                type="url"
+                value={settings.action_buttons?.[key]?.url || `#${key}`}
+                onChange={e => handleButtonChange(key, 'url', e.target.value)}
+                placeholder="https://example.com or #section"
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '14px'
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Stats Section */}
       <div style={{ marginBottom: '32px' }}>

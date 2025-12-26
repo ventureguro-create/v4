@@ -5031,15 +5031,6 @@ const Navigation = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 bg-white rounded-2xl shadow-xl p-4" data-testid="mobile-menu">
-            <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-              <span className="text-sm font-medium text-gray-600">{language === 'ru' ? 'Язык:' : 'Language:'}</span>
-              <button onClick={toggleLanguage} className="language-switcher-mobile">
-                <span className={language === 'ru' ? 'active' : ''}>RU</span>
-                <span className="separator">/</span>
-                <span className={language === 'en' ? 'active' : ''}>EN</span>
-              </button>
-            </div>
-            
             {navItems.map((item) => (
               <a key={item.key} href={item.href} className="block text-gray-700 font-medium py-2">{item.label}</a>
             ))}

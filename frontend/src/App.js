@@ -4890,6 +4890,11 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navItems, setNavItems] = useState([]);
+  const [actionButtons, setActionButtons] = useState({
+    crypto: { label: 'Crypto', url: '#crypto' },
+    core: { label: 'Core', url: '#core' },
+    utility: { label: 'Utility', url: '#utility' }
+  });
   const { language, toggleLanguage } = useLanguage();
   const t = useTranslation();
 
@@ -4924,6 +4929,21 @@ const Navigation = () => {
     };
     fetchNavItems();
   }, [language, t]);
+
+  // Fetch action buttons from hero settings
+  useEffect(() => {
+    const fetchActionButtons = async () => {
+      try {
+        const response = await axios.get(`${API}/hero-settings`);
+        if (response.data?.action_buttons) {
+          setActionButtons(response.data.action_buttons);
+        }
+      } catch (error) {
+        console.error('Error fetching action buttons:', error);
+      }
+    };
+    fetchActionButtons();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

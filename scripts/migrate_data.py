@@ -123,6 +123,55 @@ async def migrate_team_members():
             "order": 3,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "updated_at": datetime.now(timezone.utc).isoformat()
+        },
+        # Additional team members (not core)
+        {
+            "id": str(uuid4()),
+            "name_ru": "Эмили Джонс",
+            "name_en": "Emily Jones",
+            "position_ru": "Senior Developer",
+            "position_en": "Senior Developer",
+            "bio_ru": "Full-stack разработчик с опытом в blockchain",
+            "bio_en": "Full-stack developer with blockchain experience",
+            "image_url": "",
+            "social_links": {},
+            "displayed_socials": [],
+            "member_type": "team_member",
+            "order": 4,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "id": str(uuid4()),
+            "name_ru": "Дэвид Ли",
+            "name_en": "David Lee",
+            "position_ru": "Marketing Manager",
+            "position_en": "Marketing Manager",
+            "bio_ru": "Специалист по крипто-маркетингу",
+            "bio_en": "Crypto marketing specialist",
+            "image_url": "",
+            "social_links": {},
+            "displayed_socials": [],
+            "member_type": "team_member",
+            "order": 5,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        },
+        {
+            "id": str(uuid4()),
+            "name_ru": "Анна Смит",
+            "name_en": "Anna Smith",
+            "position_ru": "Community Manager",
+            "position_en": "Community Manager",
+            "bio_ru": "Управление сообществом и поддержка",
+            "bio_en": "Community management and support",
+            "image_url": "",
+            "social_links": {},
+            "displayed_socials": [],
+            "member_type": "team_member",
+            "order": 6,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
         }
     ]
     

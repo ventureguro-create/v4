@@ -1276,7 +1276,7 @@ async def verify_admin_token(token: dict):
         if decoded.startswith('admin:'):
             return {"valid": True}
         return {"valid": False}
-    except:
+    except Exception:
         return {"valid": False}
 
 
@@ -1391,7 +1391,7 @@ def parse_user_agent(user_agent_string: str) -> Dict[str, str]:
             "browser": ua.browser.family if ua.browser.family else "Unknown",
             "os": ua.os.family if ua.os.family else "Unknown"
         }
-    except:
+    except Exception:
         return {
             "device_type": "desktop",
             "browser": "Unknown",
@@ -1416,7 +1416,7 @@ def determine_traffic_source(referrer: Optional[str]) -> Dict[str, str]:
         from urllib.parse import urlparse
         domain = urlparse(referrer).netloc
         return {"traffic_source": "referral", "source_detail": domain}
-    except:
+    except Exception:
         return {"traffic_source": "referral", "source_detail": referrer}
 
 

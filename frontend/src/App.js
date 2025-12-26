@@ -2282,9 +2282,7 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
   const [partners, setPartners] = useState([]);
   const [activeCategory, setActiveCategory] = useState('partners');
   const [newPartner, setNewPartner] = useState({
-    name_ru: '',
     name_en: '',
-    description_ru: '',
     description_en: '',
     image_url: '',
     link: '',
@@ -2301,9 +2299,9 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
   }, [partnersData]);
 
   const categories = [
-    { key: 'partners', label: '🤝 Партнёры', count: partners.filter(p => p.category === 'partners').length },
-    { key: 'media', label: '📰 Медиапартнёры', count: partners.filter(p => p.category === 'media').length },
-    { key: 'portfolio', label: '💼 Портфолио', count: partners.filter(p => p.category === 'portfolio').length },
+    { key: 'partners', label: '🤝 Partners', count: partners.filter(p => p.category === 'partners').length },
+    { key: 'media', label: '📰 Media Partners', count: partners.filter(p => p.category === 'media').length },
+    { key: 'portfolio', label: '💼 Portfolio', count: partners.filter(p => p.category === 'portfolio').length },
   ];
 
   const filteredPartners = partners.filter(p => p.category === activeCategory);
@@ -2319,30 +2317,30 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
     try {
       const response = await axios.post(`${API}/upload-image`, formData);
       setNewPartner(prev => ({ ...prev, image_url: response.data.url }));
-      setMessage('✅ Изображение загружено');
+      setMessage('✅ Image uploaded');
       setTimeout(() => setMessage(''), 2000);
     } catch (err) {
-      setMessage('❌ Ошибка загрузки');
+      setMessage('❌ Upload error');
     } finally {
       setUploading(false);
     }
   };
 
   const handleAddPartner = async () => {
-    if (!newPartner.name_ru.trim() || !newPartner.name_en.trim() || !newPartner.link.trim()) {
-      setMessage('❌ Заполните название (RU/EN) и ссылку');
+    if (!newPartner.name_en.trim() || !newPartner.link.trim()) {
+      setMessage('❌ Fill in name and link');
       return;
     }
 
     try {
       await axios.post(`${API}/partners`, {
         ...newPartner,
+        name_ru: newPartner.name_en,
+        description_ru: newPartner.description_en,
         category: activeCategory
       });
       setNewPartner({ 
-        name_ru: '', 
         name_en: '', 
-        description_ru: '', 
         description_en: '', 
         image_url: '', 
         link: '', 

@@ -4207,7 +4207,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         setPassword('');
       }
     } catch (err) {
-      setError('Неверный пароль');
+      setError('Invalid password');
       console.error(err);
     } finally {
       setLoading(false);
@@ -7861,7 +7861,7 @@ const AdminPage = () => {
         fetchAllData();
       }
     } catch (err) {
-      setError('Неверный пароль');
+      setError('Invalid password');
     } finally {
       setLoginLoading(false);
     }

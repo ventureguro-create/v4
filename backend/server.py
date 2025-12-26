@@ -772,32 +772,26 @@ async def update_bottom_stats(stats: List[BottomStat]):
 @api_router.get("/roadmap")
 async def get_roadmap():
     """Get roadmap settings and tasks"""
-    collection = db["roadmap_settings"]
-    settings = await collection.find_one({"id": "roadmap_settings"}, {"_id": 0})
+    # Get settings
+    settings_collection = db["roadmap_settings"]
+    settings = await settings_collection.find_one({"id": "roadmap_settings"}, {"_id": 0})
+    
+    # Get tasks from separate collection
+    tasks = await db.roadmap_tasks.find({}, {"_id": 0}).sort("order", 1).to_list(100)
     
     if not settings:
-        # Create default roadmap
-        default_tasks = [
-            {"id": str(uuid4()), "name": "Platform Architecture", "status": "done", "category": "Development", "order": 1},
-            {"id": str(uuid4()), "name": "Core Team Formation", "status": "done", "category": "Team", "order": 2},
-            {"id": str(uuid4()), "name": "Alpha Version Launch", "status": "done", "category": "Development", "order": 3},
-            {"id": str(uuid4()), "name": "Community Building", "status": "done", "category": "Marketing", "order": 4},
-            {"id": str(uuid4()), "name": "Beta Version v1.0", "status": "done", "category": "Development", "order": 5},
-            {"id": str(uuid4()), "name": "NFT Box 666 Mint", "status": "done", "category": "NFT", "order": 6},
-            {"id": str(uuid4()), "name": "Wallet Integration", "status": "done", "category": "Development", "order": 7},
-            {"id": str(uuid4()), "name": "Analytics Dashboard", "status": "done", "category": "Development", "order": 8},
-            {"id": str(uuid4()), "name": "Beta Version v1.1", "status": "progress", "category": "Development", "order": 9},
-            {"id": str(uuid4()), "name": "OTC Marketplace", "status": "progress", "category": "Development", "order": 10},
-            {"id": str(uuid4()), "name": "Mobile App Development", "status": "progress", "category": "Development", "order": 11},
-            {"id": str(uuid4()), "name": "Partnership Programs", "status": "progress", "category": "Business", "order": 12},
-        ]
-        default = RoadmapSettings(tasks=[RoadmapTask(**t) for t in default_tasks])
-        doc = default.model_dump()
-        doc['updated_at'] = doc['updated_at'].isoformat()
-        doc['tasks'] = default_tasks
-        await collection.insert_one(doc)
-        settings = await collection.find_one({"id": "roadmap_settings"}, {"_id": 0})
+        # Create default settings
+        settings = {
+            "id": "roadmap_settings",
+            "section_badge": "Our Progress",
+            "section_title": "Project Roadmap",
+            "section_subtitle": "Track our development progress in real-time",
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }
+        await settings_collection.insert_one(settings.copy())
     
+    # Combine settings and tasks
+    settings["tasks"] = tasks
     return settings
 
 @api_router.put("/roadmap")

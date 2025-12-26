@@ -1871,7 +1871,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 
   const moduleColors = ['emerald', 'blue', 'purple', 'orange', 'pink', 'cyan', 'green', 'violet'];
 
-  const langSuffix = `_${activeLang}`;
+  // English only
 
   return (
     <div className="admin-content platform-admin">

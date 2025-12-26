@@ -1889,18 +1889,18 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
           />
         </div>
         <div className="form-group">
-          <label>Заголовок</label>
+          <label>Title</label>
           <input
             type="text"
-            value={settings[`section_title${langSuffix}`] || settings.section_title || ''}
-            onChange={e => setSettings(prev => ({ ...prev, [`section_title${langSuffix}`]: e.target.value }))}
+            value={settings.section_title_en || settings.section_title || ''}
+            onChange={e => setSettings(prev => ({ ...prev, section_title_en: e.target.value, section_title_ru: e.target.value }))}
           />
         </div>
         <div className="form-group">
-          <label>Описание</label>
+          <label>Description</label>
           <textarea
-            value={settings[`section_intro${langSuffix}`] || settings.section_intro || ''}
-            onChange={e => setSettings(prev => ({ ...prev, [`section_intro${langSuffix}`]: e.target.value }))}
+            value={settings.section_intro_en || settings.section_intro || ''}
+            onChange={e => setSettings(prev => ({ ...prev, section_intro_en: e.target.value, section_intro_ru: e.target.value }))}
             rows={3}
           />
         </div>
@@ -1908,7 +1908,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 
       {/* Stats Cards */}
       <div className="platform-section">
-        <h3>📊 Карточки статистики</h3>
+        <h3>📊 Statistics Cards</h3>
         <div className="stats-admin-grid">
           {statCards.map(({ key, emoji, title }) => (
             <div key={key} className="stat-admin-card">
@@ -1916,19 +1916,19 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
               <div className="stat-admin-fields">
                 <input
                   type="text"
-                  placeholder="Значение (45,658)"
+                  placeholder="Value (45,658)"
                   value={settings[key]?.value || ''}
                   onChange={e => handleStatChange(key, 'value', e.target.value)}
                 />
                 <input
                   type="text"
-                  placeholder={`Лейбл (${activeLang.toUpperCase()})`}
-                  value={settings[key]?.[`label${langSuffix}`] || settings[key]?.label || ''}
-                  onChange={e => handleStatChange(key, `label${langSuffix}`, e.target.value)}
+                  placeholder="Label"
+                  value={settings[key]?.label_en || settings[key]?.label || ''}
+                  onChange={e => { handleStatChange(key, 'label_en', e.target.value); handleStatChange(key, 'label_ru', e.target.value); }}
                 />
                 <input
                   type="text"
-                  placeholder="Изменение (+12%)"
+                  placeholder="Change (+12%)"
                   value={settings[key]?.change || ''}
                   onChange={e => handleStatChange(key, 'change', e.target.value)}
                 />
@@ -1940,7 +1940,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 
       {/* Service Modules */}
       <div className="platform-section">
-        <h3>🧩 Сервисные модули ({activeLang === 'ru' ? 'RU' : 'EN'})</h3>
+        <h3>🧩 Service Modules</h3>
         <div className="modules-admin-grid">
           {(settings.service_modules || []).map((module, index) => (
             <div key={index} className="module-admin-card">
@@ -1953,9 +1953,9 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
               />
               <input
                 type="text"
-                value={module[`name${langSuffix}`] || module.name || ''}
-                onChange={e => handleModuleChange(index, `name${langSuffix}`, e.target.value)}
-                placeholder="Название"
+                value={module.name_en || module.name || ''}
+                onChange={e => { handleModuleChange(index, 'name_en', e.target.value); handleModuleChange(index, 'name_ru', e.target.value); }}
+                placeholder="Name"
               />
               <input
                 type="text"

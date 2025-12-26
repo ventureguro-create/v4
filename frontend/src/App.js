@@ -8077,7 +8077,7 @@ const MainSite = () => {
     <div className="App bg-white">
       <Navigation />
       <HeroSection heroSettings={heroSettings} />
-      <AboutSection />
+      <AboutSection whitepaperUrl={footerSettings?.whitepaper_url} />
       <PlatformOverview platformSettings={platformSettings} />
       <MyProductsSection cards={platformSettings?.service_modules || cards} />
       <RoadmapSection roadmapData={roadmapData} />

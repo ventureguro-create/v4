@@ -611,13 +611,13 @@ const UnifiedAdminPanel = ({ isOpen, onClose, cards, team, platformSettings, roa
       <div className="admin-panel-fullpage" data-testid="unified-admin-panel">
         <div className="admin-tabs-horizontal">
           {[
-            { id: 'analytics', icon: '📊', label: 'Статистика' },
-            { id: 'projects', icon: '📦', label: 'Проекты' },
-            { id: 'team', icon: '👥', label: 'Команда' },
-            { id: 'platform', icon: '⚙️', label: 'Платформа' },
+            { id: 'analytics', icon: '📊', label: 'Analytics' },
+            { id: 'projects', icon: '📦', label: 'Projects' },
+            { id: 'team', icon: '👥', label: 'Team' },
+            { id: 'platform', icon: '⚙️', label: 'Platform' },
             { id: 'roadmap', icon: '🗺️', label: 'Roadmap' },
-            { id: 'partners', icon: '🤝', label: 'Партнёры' },
-            { id: 'footer', icon: '📄', label: 'Футер' },
+            { id: 'partners', icon: '🤝', label: 'Partners' },
+            { id: 'footer', icon: '📄', label: 'Footer' },
             { id: 'faq', icon: '❓', label: 'FAQ' },
             { id: 'community', icon: '🌐', label: 'Community' },
             { id: 'evolution', icon: '🚀', label: 'Evolution' },
@@ -656,25 +656,25 @@ const UnifiedAdminPanel = ({ isOpen, onClose, cards, team, platformSettings, roa
       <div className="admin-panel admin-panel-unified" onClick={e => e.stopPropagation()} data-testid="unified-admin-panel">
         <div className="admin-header">
           <div className="admin-header-left">
-            <h2>🎛️ Панель управления FOMO</h2>
+            <h2>🎛️ FOMO Control Panel</h2>
             <div className="admin-tabs">
               <button 
                 className={`admin-tab ${activeTab === 'projects' ? 'active' : ''}`}
                 onClick={() => setActiveTab('projects')}
               >
-                📦 Проекты
+                📦 Projects
               </button>
               <button 
                 className={`admin-tab ${activeTab === 'team' ? 'active' : ''}`}
                 onClick={() => setActiveTab('team')}
               >
-                👥 Команда
+                👥 Team
               </button>
               <button 
                 className={`admin-tab ${activeTab === 'platform' ? 'active' : ''}`}
                 onClick={() => setActiveTab('platform')}
               >
-                📊 Платформа
+                📊 Platform
               </button>
               <button 
                 className={`admin-tab ${activeTab === 'roadmap' ? 'active' : ''}`}
@@ -686,7 +686,7 @@ const UnifiedAdminPanel = ({ isOpen, onClose, cards, team, platformSettings, roa
                 className={`admin-tab ${activeTab === 'partners' ? 'active' : ''}`}
                 onClick={() => setActiveTab('partners')}
               >
-                🤝 Партнёры
+                🤝 Partners
               </button>
               <button 
                 className={`admin-tab ${activeTab === 'footer' ? 'active' : ''}`}

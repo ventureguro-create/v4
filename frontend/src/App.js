@@ -4986,8 +4986,9 @@ const Navigation = () => {
           <div className="hidden lg:flex items-center gap-3 z-10">
             {/* Separated Action Buttons */}
             <div className="action-buttons-group">
-              <a href="#crypto" className="action-btn action-btn-outline">Crypto</a>
-              <a href="#core" className="action-btn action-btn-outline">Core</a>
+              <a href={actionButtons.crypto?.url || '#crypto'} target={actionButtons.crypto?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.crypto?.label || 'Crypto'}</a>
+              <a href={actionButtons.core?.url || '#core'} target={actionButtons.core?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.core?.label || 'Core'}</a>
+              <a href={actionButtons.utility?.url || '#utility'} target={actionButtons.utility?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.utility?.label || 'Utility'}</a>
               <a href="#utility" className="action-btn action-btn-outline">Utility</a>
             </div>
           </div>

@@ -7919,19 +7919,19 @@ const AdminPage = () => {
             <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1f2937', margin: '0 0 8px 0' }}>
               FOMO Admin
             </h1>
-            <p style={{ color: '#6b7280', margin: 0 }}>Введите пароль для входа</p>
+            <p style={{ color: '#6b7280', margin: 0 }}>Enter password to login</p>
           </div>
 
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>
-                Пароль
+                Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Введите пароль"
+                placeholder="Enter password"
                 style={{
                   width: '100%',
                   padding: '14px 16px',
@@ -7977,13 +7977,13 @@ const AdminPage = () => {
                 transition: 'opacity 0.2s'
               }}
             >
-              {loginLoading ? 'Вход...' : 'Войти в админ-панель'}
+              {loginLoading ? 'Logging in...' : 'Login to Admin Panel'}
             </button>
           </form>
 
           <div style={{ marginTop: '24px', textAlign: 'center' }}>
             <a href="/" style={{ color: '#6b7280', fontSize: '14px', textDecoration: 'none' }}>
-              ← Вернуться на главную
+              ← Back to Main Site
             </a>
           </div>
         </div>

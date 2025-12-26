@@ -10,6 +10,20 @@ user_problem_statement: |
   - All sections configurable from admin: Projects, Team, Roadmap, Partners, Footer, FAQ, Community, Evolution
   - User Evolution section with FOMO Score levels and badges with flip-card animation
   - Professional SVG animations instead of emojis
+  - Dynamic content from MongoDB displayed on frontend
+
+## Latest Bug Fixes (2025-12-26):
+- Fixed: ProjectDrawer crash when card.image_url is undefined
+- Fixed: TeamSection crash when member.image_url is empty
+- Added: Placeholder icons for ecosystem cards without images
+- Added: Avatar placeholders with initials for team members without photos
+- All 4 data display issues resolved: Ecosystem, Roadmap, Core Team, Team Members
+
+## Test Focus Areas:
+1. Verify "Экосистема FOMO" section displays service_modules from database
+2. Verify "Дорожная карта" section displays tasks from database
+3. Verify "Команда экспертов" section displays core team with avatar placeholders
+4. Verify "Члены команды" section displays team_member type entries
 
 backend:
   - task: "GET /api/drawer-cards - Fetch all project cards"

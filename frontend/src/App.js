@@ -1961,13 +1961,13 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
                 type="text"
                 value={module.count || ''}
                 onChange={e => handleModuleChange(index, 'count', e.target.value)}
-                placeholder="Значение"
+                placeholder="Value"
               />
               <input
                 type="text"
-                value={module[`label${langSuffix}`] || module.label || ''}
-                onChange={e => handleModuleChange(index, `label${langSuffix}`, e.target.value)}
-                placeholder="Описание"
+                value={module.label_en || module.label || ''}
+                onChange={e => { handleModuleChange(index, 'label_en', e.target.value); handleModuleChange(index, 'label_ru', e.target.value); }}
+                placeholder="Description"
               />
               <select
                 value={module.color || 'emerald'}
@@ -1984,7 +1984,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 
       {/* Services List (Left Column) */}
       <div className="platform-section">
-        <h3>📋 Список сервисов ({activeLang === 'ru' ? 'RU' : 'EN'})</h3>
+        <h3>📋 Services List</h3>
         <div className="services-admin-list">
           {(settings.services_list || []).map((service, index) => (
             <div key={index} className="service-admin-item">
@@ -1992,14 +1992,14 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
               <div className="service-admin-fields">
                 <input
                   type="text"
-                  value={service[`title${langSuffix}`] || service.title || ''}
-                  onChange={e => handleServiceChange(index, `title${langSuffix}`, e.target.value)}
-                  placeholder="Заголовок"
+                  value={service.title_en || service.title || ''}
+                  onChange={e => { handleServiceChange(index, 'title_en', e.target.value); handleServiceChange(index, 'title_ru', e.target.value); }}
+                  placeholder="Title"
                 />
                 <textarea
-                  value={service[`description${langSuffix}`] || service.description || ''}
-                  onChange={e => handleServiceChange(index, `description${langSuffix}`, e.target.value)}
-                  placeholder="Описание"
+                  value={service.description_en || service.description || ''}
+                  onChange={e => { handleServiceChange(index, 'description_en', e.target.value); handleServiceChange(index, 'description_ru', e.target.value); }}
+                  placeholder="Description"
                   rows={2}
                 />
               </div>
@@ -2010,7 +2010,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 
       {/* Bottom Stats */}
       <div className="platform-section">
-        <h3>📈 Нижняя статистика ({activeLang === 'ru' ? 'RU' : 'EN'})</h3>
+        <h3>📈 Bottom Statistics</h3>
         <div className="bottom-stats-admin">
           {(settings.bottom_stats || []).map((stat, index) => (
             <div key={index} className="bottom-stat-admin">

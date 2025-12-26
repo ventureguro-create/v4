@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, UploadFile, File, Form, Request
+from fastapi import FastAPI, APIRouter, HTTPException, UploadFile, File, Request
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -581,7 +581,7 @@ async def upload_image(file: UploadFile = File(...)):
     if file.content_type not in allowed_types:
         raise HTTPException(
             status_code=400, 
-            detail=f"Invalid file type. Allowed: PNG, JPEG, WebP. Recommended: PNG or WebP at 1200x800px"
+            detail="Invalid file type. Allowed: PNG, JPEG, WebP. Recommended: PNG or WebP at 1200x800px"
         )
     
     # Generate unique filename

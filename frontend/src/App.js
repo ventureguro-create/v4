@@ -1421,20 +1421,20 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
         </div>
         <div className="form-actions">
           <button type="submit" className="btn-primary" disabled={isUploading}>
-            {editingCard ? '✅ Обновить карточку' : '➕ Добавить карточку'}
+            {editingCard ? '✅ Update Card' : '➕ Add Card'}
           </button>
           {editingCard && (
             <button type="button" onClick={resetForm} className="btn-secondary">
-              ❌ Отмена
+              ❌ Cancel
             </button>
           )}
         </div>
       </form>
 
       <div className="admin-cards-list">
-        <h3>Существующие карточки ({cards.length})</h3>
+        <h3>Existing Cards ({cards.length})</h3>
         {cards.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">Пока нет карточек. Добавьте первую!</p>
+          <p className="text-gray-500 text-center py-8">No cards yet. Add your first one!</p>
         ) : (
           cards.map((card, index) => (
             <div key={card.id} className="admin-card-item">
@@ -1442,21 +1442,20 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
                 <img src={card.image_url.startsWith('/') ? `${BACKEND_URL}${card.image_url}` : card.image_url} alt={getLangField(card, 'title')} />
               </div>
               <div className="card-info">
-                <strong>🇷🇺 {card.title_ru || 'N/A'}</strong>
-                <strong>🇬🇧 {card.title_en || 'N/A'}</strong>
+                <strong>{card.title_en || card.title_ru || 'N/A'}</strong>
                 <span className="card-link">{card.link}</span>
               </div>
               <div className="card-actions">
-                <button onClick={() => moveCard(card.id, 'up')} disabled={index === 0} title="Переместить вверх">
+                <button onClick={() => moveCard(card.id, 'up')} disabled={index === 0} title="Move Up">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
                 </button>
-                <button onClick={() => moveCard(card.id, 'down')} disabled={index === cards.length - 1} title="Переместить вниз">
+                <button onClick={() => moveCard(card.id, 'down')} disabled={index === cards.length - 1} title="Move Down">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </button>
-                <button onClick={() => handleEdit(card)} title="Редактировать">
+                <button onClick={() => handleEdit(card)} title="Edit">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 </button>
-                <button onClick={() => handleDelete(card.id)} className="btn-danger" title="Удалить">
+                <button onClick={() => handleDelete(card.id)} className="btn-danger" title="Delete">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                 </button>
               </div>
@@ -1468,18 +1467,13 @@ const ProjectsAdminContent = ({ cards, onCardsUpdate }) => {
   );
 };
 
-// Team Admin Content Component (сократим для экономии места)
+// Team Admin Content Component
 const TeamAdminContent = ({ team, onTeamUpdate }) => {
-  // Весь функционал из TeamAdminPanel но без обертки modal
-  // Используем тот же код что был в TeamAdminPanel
   const [editingMember, setEditingMember] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
-    name_ru: '',
     name_en: '',
-    position_ru: '',
     position_en: '',
-    bio_ru: '',
     bio_en: '',
     image_url: '',
     social_links: { twitter: '', linkedin: '', telegram: '', instagram: '', tiktok: '', website: '' },

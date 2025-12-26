@@ -5529,7 +5529,7 @@ const HeroSection = ({ heroSettings }) => {
 };
 
 // About Section
-const AboutSection = () => {
+const AboutSection = ({ whitepaperUrl }) => {
   const { language } = useLanguage();
   
   const content = {
@@ -5543,7 +5543,6 @@ const AboutSection = () => {
       dataAnalytics: 'data analytics',
       seamlessAccess: 'seamless access',
       descriptionEnd: 'to crypto projects, NFTs, funds, and more.',
-      downloadButton: 'Download Whitepaper',
       features: [
         { icon: 'diamond', title: 'Community-Driven', description: 'Every user influences the project through voting and social engagement.', color: 'emerald' },
         { icon: 'clock', title: '24/7 Support', description: 'Our support never stops. We are here offering guidance every step.', color: 'teal' },
@@ -5552,21 +5551,20 @@ const AboutSection = () => {
       ]
     },
     ru: {
-      badge: 'О нас',
-      title: 'Что такое',
+      badge: 'About Us',
+      title: 'What is',
       titleHighlight: 'FOMO',
-      subtitle: 'Инновационная платформа, меняющая взаимодействие пользователей с криптомиром',
-      description: 'FOMO — это инновационная платформа, созданная для трансформации взаимодействия пользователей с криптомиром. Наша цель — создать единую комплексную экосистему, которая объединяет',
-      socialEngagement: 'социальное взаимодействие',
-      dataAnalytics: 'аналитику данных',
-      seamlessAccess: 'удобный доступ',
-      descriptionEnd: 'к крипто-проектам, NFT, фондам и многому другому.',
-      downloadButton: 'Скачать Whitepaper',
+      subtitle: 'A cutting-edge platform reshaping how users interact with the crypto world',
+      description: 'FOMO is a cutting-edge platform built to reshape the way users interact with the cryptoworld. Our goal is to create a single, comprehensive ecosystem that combines',
+      socialEngagement: 'social engagement',
+      dataAnalytics: 'data analytics',
+      seamlessAccess: 'seamless access',
+      descriptionEnd: 'to crypto projects, NFTs, funds, and more.',
       features: [
-        { icon: 'diamond', title: 'Сообщество в основе', description: 'Каждый пользователь влияет на проект через голосование и социальное взаимодействие.', color: 'emerald' },
-        { icon: 'clock', title: 'Поддержка 24/7', description: 'Наша поддержка никогда не останавливается. Мы всегда рядом, предлагая помощь на каждом этапе.', color: 'teal' },
-        { icon: 'lightning', title: 'Быстро и эффективно', description: 'Запускайте свой проект быстро с инструментами и поддержкой FOMO.', color: 'cyan' },
-        { icon: 'shield', title: 'Безопасно и надежно', description: 'Все транзакции через защищенные смарт-контракты для максимальной защиты.', color: 'violet' },
+        { icon: 'diamond', title: 'Community-Driven', description: 'Every user influences the project through voting and social engagement.', color: 'emerald' },
+        { icon: 'clock', title: '24/7 Support', description: 'Our support never stops. We are here offering guidance every step.', color: 'teal' },
+        { icon: 'lightning', title: 'Fast & Efficient', description: 'Launch your project quickly with FOMO tools and support.', color: 'cyan' },
+        { icon: 'shield', title: 'Secure & Reliable', description: 'All transactions via secure smart contracts for max protection.', color: 'violet' },
       ]
     }
   };
@@ -5586,12 +5584,33 @@ const AboutSection = () => {
           <div>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
               {t.description} <strong className="text-gray-900">{t.socialEngagement}</strong>, 
-              <strong className="text-gray-900"> {t.dataAnalytics}</strong> {language === 'ru' ? 'и' : ', and'} <strong className="text-gray-900">{t.seamlessAccess}</strong> {t.descriptionEnd}
+              <strong className="text-gray-900"> {t.dataAnalytics}</strong>, and <strong className="text-gray-900">{t.seamlessAccess}</strong> {t.descriptionEnd}
             </p>
-            <button className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-xl transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-              {t.downloadButton}
-            </button>
+            <a 
+              href={whitepaperUrl || '#'} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="whitepaper-link inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-medium rounded-xl transition-all shadow-lg hover:shadow-xl"
+            >
+              <svg className="whitepaper-icon w-6 h-6" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor" strokeWidth="2">
+                  <animate attributeName="stroke-dasharray" values="0,100;100,0" dur="1.5s" repeatCount="1" fill="freeze" />
+                </rect>
+                <path d="M8 6h8M8 10h8M8 14h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <animate attributeName="opacity" values="0;1" dur="0.8s" begin="0.5s" fill="freeze" />
+                </path>
+                <circle cx="16" cy="18" r="3" fill="#10b981">
+                  <animate attributeName="r" values="0;3" dur="0.3s" begin="1s" fill="freeze" />
+                </circle>
+                <path d="M15 18l1 1 2-2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <animate attributeName="opacity" values="0;1" dur="0.2s" begin="1.2s" fill="freeze" />
+                </path>
+              </svg>
+              <span>Whitepaper</span>
+              <svg className="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-4">

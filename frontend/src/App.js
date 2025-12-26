@@ -6884,10 +6884,16 @@ const TeamSection = () => {
                   {/* Front Side */}
                   <div className="team-card-front">
                     <div className="team-card-image">
-                      <img 
-                        src={member.image_url.startsWith('/') ? `${BACKEND_URL}${member.image_url}` : member.image_url}
-                        alt={getLangFieldWithContext(member, 'name', language)}
-                      />
+                      {member.image_url ? (
+                        <img 
+                          src={member.image_url.startsWith('/') ? `${BACKEND_URL}${member.image_url}` : member.image_url}
+                          alt={getLangFieldWithContext(member, 'name', language)}
+                        />
+                      ) : (
+                        <div className="team-avatar-placeholder">
+                          <span>{(getLangFieldWithContext(member, 'name', language) || 'U').charAt(0)}</span>
+                        </div>
+                      )}
                     </div>
                     <div className="team-card-info">
                       <h3 className="team-member-name">{getLangFieldWithContext(member, 'name', language)}</h3>

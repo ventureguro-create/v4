@@ -3544,20 +3544,20 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
     setSaving(true);
     try {
       await axios.put(`${API}/community-settings`, {
-        title_ru: settings.title_ru,
+        title_ru: settings.title_en,
         title_en: settings.title_en,
-        description_ru: settings.description_ru,
+        description_ru: settings.description_en,
         description_en: settings.description_en,
         socials: settings.socials,
         subscribe_enabled: settings.subscribe_enabled,
-        subscribe_title_ru: settings.subscribe_title_ru,
+        subscribe_title_ru: settings.subscribe_title_en,
         subscribe_title_en: settings.subscribe_title_en
       });
-      setMessage('✅ Настройки Community сохранены!');
+      setMessage('✅ Community settings saved!');
       onCommunityUpdate();
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('❌ Ошибка сохранения');
+      setMessage('❌ Save error');
       console.error(err);
     } finally {
       setSaving(false);
@@ -3565,58 +3565,37 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
   };
 
   const platformOptions = ['twitter', 'telegram', 'discord', 'github', 'youtube', 'instagram', 'linkedin', 'medium'];
-  const langSuffix = `_${activeLang}`;
 
   return (
     <div className="admin-content community-admin">
       {message && <div className="admin-message">{message}</div>}
       
       <div className="community-admin-header">
-        <h3>🌐 Настройки блока "Join the Community"</h3>
+        <h3>🌐 "Join the Community" Block Settings</h3>
         <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
-          Управляйте заголовком, описанием и социальными сетями для блока Community.
+          Manage title, description and social links for the Community block.
         </p>
       </div>
 
-      {/* Language Toggle */}
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-        <button 
-          onClick={() => setActiveLang('ru')} 
-          style={{
-            padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer',
-            background: activeLang === 'ru' ? '#10b981' : '#e5e7eb',
-            color: activeLang === 'ru' ? 'white' : '#374151', fontWeight: '600'
-          }}
-        >🇷🇺 Русский</button>
-        <button 
-          onClick={() => setActiveLang('en')} 
-          style={{
-            padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer',
-            background: activeLang === 'en' ? '#10b981' : '#e5e7eb',
-            color: activeLang === 'en' ? 'white' : '#374151', fontWeight: '600'
-          }}
-        >🇬🇧 English</button>
-      </div>
-
       <div className="admin-section">
-        <h4>📝 Основная информация ({activeLang === 'ru' ? 'RU' : 'EN'})</h4>
+        <h4>📝 Main Information</h4>
         
         <div className="form-group">
-          <label>Заголовок</label>
+          <label>Title</label>
           <input
             type="text"
-            value={settings[`title${langSuffix}`] || ''}
-            onChange={e => handleChange(`title${langSuffix}`, e.target.value)}
-            placeholder={activeLang === 'ru' ? 'Присоединяйся к сообществу' : 'Join the Community'}
+            value={settings.title_en || ''}
+            onChange={e => handleChange('title_en', e.target.value)}
+            placeholder="Join the Community"
           />
         </div>
         
         <div className="form-group">
-          <label>Описание</label>
+          <label>Description</label>
           <textarea
-            value={settings[`description${langSuffix}`] || ''}
-            onChange={e => handleChange(`description${langSuffix}`, e.target.value)}
-            placeholder="Описание блока Community"
+            value={settings.description_en || ''}
+            onChange={e => handleChange('description_en', e.target.value)}
+            placeholder="Community block description"
             rows={3}
           />
         </div>

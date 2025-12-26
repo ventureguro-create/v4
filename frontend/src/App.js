@@ -3346,17 +3346,17 @@ const HeroAdminContent = () => {
       {/* Stats Section */}
       <div style={{ marginBottom: '32px' }}>
         <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1f2937', marginBottom: '16px' }}>
-          Статистика на главной странице
+          📊 Hero Section Statistics
         </h3>
         <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
-          Настройте показатели, которые отображаются под заголовком Hero секции (10K+, $50M+, 666)
+          Configure the stats displayed below the Hero section header (10K+, $50M+, 666)
         </p>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {settings.stats.map((stat, index) => (
             <div key={index} style={{
               display: 'grid',
-              gridTemplateColumns: '120px 1fr 1fr auto',
+              gridTemplateColumns: '120px 1fr auto',
               gap: '12px',
               padding: '16px',
               background: '#f9fafb',
@@ -3378,21 +3378,9 @@ const HeroAdminContent = () => {
               />
               <input
                 type="text"
-                value={stat.label_ru}
-                onChange={(e) => handleStatChange(index, 'label_ru', e.target.value)}
-                placeholder="Описание (RU)"
-                style={{
-                  padding: '10px 12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '14px'
-                }}
-              />
-              <input
-                type="text"
-                value={stat.label_en}
+                value={stat.label_en || stat.label_ru || ''}
                 onChange={(e) => handleStatChange(index, 'label_en', e.target.value)}
-                placeholder="Description (EN)"
+                placeholder="Description"
                 style={{
                   padding: '10px 12px',
                   border: '1px solid #d1d5db',
@@ -3411,7 +3399,7 @@ const HeroAdminContent = () => {
                   cursor: 'pointer'
                 }}
               >
-                Удалить
+                Delete
               </button>
             </div>
           ))}
@@ -3430,14 +3418,14 @@ const HeroAdminContent = () => {
             color: '#6b7280'
           }}
         >
-          + Добавить статистику
+          + Add Stat
         </button>
       </div>
 
       {/* NFT Settings Section */}
       <div style={{ marginBottom: '32px' }}>
         <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1f2937', marginBottom: '16px' }}>
-          Настройки NFT боксов
+          🎨 NFT Box Settings
         </h3>
         <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
           Управляйте ценой, скидками и лимитами покупки NFT боксов

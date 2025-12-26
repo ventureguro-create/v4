@@ -519,8 +519,8 @@ const ProjectDrawer = ({ cards }) => {
       <div className="drawer-carousel-stack">
         {cards.map((card, index) => (
           <a
-            key={card.id}
-            href={card.link}
+            key={card.id || index}
+            href={card.link || '#'}
             target="_blank"
             rel="noopener noreferrer"
             className="drawer-card-carousel"
@@ -534,16 +534,23 @@ const ProjectDrawer = ({ cards }) => {
             data-testid={`drawer-card-${index}`}
           >
             <div className="drawer-card-image-wrapper">
-              <img 
-                src={card.image_url.startsWith('/') ? `${BACKEND_URL}${card.image_url}` : card.image_url} 
-                alt={getLangField(card, 'title')}
-                loading="lazy"
-              />
+              {card.image_url ? (
+                <img 
+                  src={card.image_url.startsWith('/') ? `${BACKEND_URL}${card.image_url}` : card.image_url} 
+                  alt={getLangField(card, 'title') || getLangField(card, 'name') || ''}
+                  loading="lazy"
+                />
+              ) : (
+                <div className="drawer-card-icon-fallback">
+                  <span className="text-5xl">{card.icon || '📦'}</span>
+                </div>
+              )}
             </div>
             <div className="drawer-card-overlay-carousel">
               <div className="drawer-card-content-carousel">
                 <span className="drawer-card-number-carousel">{String(index + 1).padStart(2, '0')}</span>
-                <h3 className="drawer-card-title-carousel">{getLangField(card, 'title')}</h3>
+                <h3 className="drawer-card-title-carousel">{getLangField(card, 'title') || getLangField(card, 'name') || ''}</h3>
+                {card.count && <p className="drawer-card-count">{card.count} {getLangField(card, 'label') || ''}</p>}
                 {index === currentIndex && (
                   <svg className="drawer-card-arrow-carousel" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

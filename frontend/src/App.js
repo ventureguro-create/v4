@@ -3428,7 +3428,7 @@ const HeroAdminContent = () => {
           🎨 NFT Box Settings
         </h3>
         <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
-          Управляйте ценой, скидками и лимитами покупки NFT боксов
+          Manage price, discounts and NFT box purchase limits
         </p>
         
         <div style={{
@@ -3441,7 +3441,7 @@ const HeroAdminContent = () => {
         }}>
           <div>
             <label style={{ display: 'block', fontSize: '13px', color: '#6b7280', marginBottom: '6px' }}>
-              Цена за бокс (USDC)
+              Price per box (USDC)
             </label>
             <input
               type="number"
@@ -3459,7 +3459,7 @@ const HeroAdminContent = () => {
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', color: '#6b7280', marginBottom: '6px' }}>
-              Порог скидки (кол-во)
+              Discount threshold (qty)
             </label>
             <input
               type="number"
@@ -3477,7 +3477,7 @@ const HeroAdminContent = () => {
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', color: '#6b7280', marginBottom: '6px' }}>
-              Размер скидки (%)
+              Discount percent (%)
             </label>
             <input
               type="number"
@@ -3495,7 +3495,7 @@ const HeroAdminContent = () => {
           
           <div>
             <label style={{ display: 'block', fontSize: '13px', color: '#6b7280', marginBottom: '6px' }}>
-              Всего NFT боксов
+              Total NFT boxes
             </label>
             <input
               type="number"

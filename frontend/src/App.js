@@ -2350,7 +2350,7 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
       onPartnersUpdate();
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('❌ Ошибка добавления');
+      setMessage('❌ Add error');
     }
   };
 
@@ -2364,15 +2364,15 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
   };
 
   const handleDeletePartner = async (partnerId) => {
-    if (!window.confirm('Удалить этого партнёра?')) return;
+    if (!window.confirm('Delete this partner?')) return;
 
     try {
       await axios.delete(`${API}/partners/${partnerId}`);
-      setMessage('✅ Партнёр удалён');
+      setMessage('✅ Partner deleted');
       onPartnersUpdate();
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('❌ Ошибка удаления');
+      setMessage('❌ Delete error');
     }
   };
 
@@ -2395,30 +2395,19 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
 
       {/* Add New Partner */}
       <div className="partners-section">
-        <h3>➕ Добавить партнёра</h3>
+        <h3>➕ Add Partner</h3>
         <div className="partner-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>🇷🇺 Название (Русский) *</label>
-              <input
-                type="text"
-                value={newPartner.name_ru}
-                onChange={e => setNewPartner(prev => ({ ...prev, name_ru: e.target.value }))}
-                placeholder="CoinGecko"
-              />
-            </div>
-            <div className="form-group">
-              <label>🇬🇧 Название (English) *</label>
-              <input
-                type="text"
-                value={newPartner.name_en}
-                onChange={e => setNewPartner(prev => ({ ...prev, name_en: e.target.value }))}
-                placeholder="CoinGecko"
-              />
-            </div>
+          <div className="form-group">
+            <label>Name *</label>
+            <input
+              type="text"
+              value={newPartner.name_en}
+              onChange={e => setNewPartner(prev => ({ ...prev, name_en: e.target.value }))}
+              placeholder="CoinGecko"
+            />
           </div>
           <div className="form-group">
-            <label>Ссылка *</label>
+            <label>Link *</label>
             <input
               type="text"
               value={newPartner.link}
@@ -2427,26 +2416,17 @@ const PartnersAdminContent = ({ partnersData, onPartnersUpdate }) => {
             />
           </div>
           <div className="form-group">
-            <label>🇷🇺 Описание (Русский)</label>
-            <textarea
-              value={newPartner.description_ru}
-              onChange={e => setNewPartner(prev => ({ ...prev, description_ru: e.target.value }))}
-              placeholder="Краткое описание партнёра на русском..."
-              rows={2}
-            />
-          </div>
-          <div className="form-group">
-            <label>🇬🇧 Описание (English)</label>
+            <label>Description</label>
             <textarea
               value={newPartner.description_en}
               onChange={e => setNewPartner(prev => ({ ...prev, description_en: e.target.value }))}
-              placeholder="Short partner description in English..."
+              placeholder="Short partner description..."
               rows={2}
             />
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label>Логотип (PNG/SVG, 200×200px, прозрачный фон)</label>
+              <label>Logo (PNG/SVG, 200×200px, transparent background)</label>
               <div className="image-upload-row">
                 <input
                   type="file"

@@ -4989,7 +4989,6 @@ const Navigation = () => {
               <a href={actionButtons.crypto?.url || '#crypto'} target={actionButtons.crypto?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.crypto?.label || 'Crypto'}</a>
               <a href={actionButtons.core?.url || '#core'} target={actionButtons.core?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.core?.label || 'Core'}</a>
               <a href={actionButtons.utility?.url || '#utility'} target={actionButtons.utility?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="action-btn action-btn-outline">{actionButtons.utility?.label || 'Utility'}</a>
-              <a href="#utility" className="action-btn action-btn-outline">Utility</a>
             </div>
           </div>
 
@@ -5009,9 +5008,9 @@ const Navigation = () => {
             ))}
             
             <div className="flex gap-2 mt-3 pt-3 border-t border-gray-100">
-              <a href="#crypto" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Crypto</a>
-              <a href="#core" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Core</a>
-              <a href="#utility" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">Utility</a>
+              <a href={actionButtons.crypto?.url || '#crypto'} target={actionButtons.crypto?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">{actionButtons.crypto?.label || 'Crypto'}</a>
+              <a href={actionButtons.core?.url || '#core'} target={actionButtons.core?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">{actionButtons.core?.label || 'Core'}</a>
+              <a href={actionButtons.utility?.url || '#utility'} target={actionButtons.utility?.url?.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="flex-1 text-center py-2 px-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-500 hover:text-white hover:border-emerald-500 transition-all">{actionButtons.utility?.label || 'Utility'}</a>
             </div>
           </div>
         )}

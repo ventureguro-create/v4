@@ -3602,9 +3602,9 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
       </div>
 
       <div className="admin-section">
-        <h4>📱 Социальные сети</h4>
+        <h4>📱 Social Networks</h4>
         <p style={{ fontSize: '12px', color: '#6b7280', marginBottom: '16px' }}>
-          Добавьте ссылки на ваши социальные сети. Включенные соцсети будут отображаться как кнопки.
+          Add links to your social networks. Enabled socials will be displayed as buttons.
         </p>
         
         <div className="socials-admin-list">
@@ -3656,13 +3656,13 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
                   checked={social.enabled}
                   onChange={e => handleSocialChange(index, 'enabled', e.target.checked)}
                 />
-                <span style={{ fontSize: '13px', color: '#6b7280' }}>Вкл.</span>
+                <span style={{ fontSize: '13px', color: '#6b7280' }}>On</span>
               </label>
               
               <button
                 onClick={() => removeSocial(index)}
                 className="btn-danger-small"
-                title="Удалить"
+                title="Delete"
                 style={{
                   padding: '6px 10px',
                   background: '#ef4444',
@@ -3680,12 +3680,12 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
         </div>
         
         <button onClick={addSocial} className="btn-secondary" style={{ marginTop: '12px' }}>
-          ➕ Добавить соцсеть
+          ➕ Add Social
         </button>
       </div>
 
       <div className="admin-section">
-        <h4>✉️ Блок подписки</h4>
+        <h4>✉️ Subscribe Block</h4>
         
         <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
@@ -3694,7 +3694,7 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
               checked={settings.subscribe_enabled}
               onChange={e => handleChange('subscribe_enabled', e.target.checked)}
             />
-            <span>Показывать блок подписки</span>
+            <span>Show subscribe block</span>
           </label>
         </div>
         

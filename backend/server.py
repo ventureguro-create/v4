@@ -772,27 +772,31 @@ async def update_bottom_stats(stats: List[BottomStat]):
 @api_router.get("/roadmap")
 async def get_roadmap():
     """Get roadmap settings and tasks"""
-    # Get settings
-    settings_collection = db["roadmap_settings"]
-    settings = await settings_collection.find_one({"id": "roadmap_settings"}, {"_id": 0})
-    
-    # Get tasks from separate collection
-    tasks = await db.roadmap_tasks.find({}, {"_id": 0}).sort("order", 1).to_list(100)
-    
-    if not settings:
-        # Create default settings
-        settings = {
-            "id": "roadmap_settings",
-            "section_badge": "Our Progress",
-            "section_title": "Project Roadmap",
-            "section_subtitle": "Track our development progress in real-time",
-            "updated_at": datetime.now(timezone.utc).isoformat()
-        }
-        await settings_collection.insert_one(settings.copy())
-    
-    # Combine settings and tasks
-    settings["tasks"] = tasks
-    return settings
+    try:
+        # Get settings
+        settings_collection = db["roadmap_settings"]
+        settings = await settings_collection.find_one({"id": "roadmap_settings"}, {"_id": 0})
+        
+        # Get tasks from separate collection
+        tasks = await db.roadmap_tasks.find({}, {"_id": 0}).sort("order", 1).to_list(100)
+        
+        if not settings:
+            # Create default settings
+            settings = {
+                "id": "roadmap_settings",
+                "section_badge": "Our Progress",
+                "section_title": "Project Roadmap",
+                "section_subtitle": "Track our development progress in real-time",
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+            await settings_collection.insert_one(settings.copy())
+        
+        # Combine settings and tasks
+        settings["tasks"] = tasks
+        return settings
+    except Exception as e:
+        print(f"Error in get_roadmap: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.put("/roadmap")
 async def update_roadmap(update_data: dict):

@@ -2714,17 +2714,17 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
           </div>
         </div>
         <div className="form-group">
-          <label>Описание</label>
+          <label>Description</label>
           <textarea
             value={settings.company_description}
             onChange={e => setSettings(prev => ({ ...prev, company_description: e.target.value }))}
-            placeholder="Краткое описание компании"
+            placeholder="Short company description"
             rows={2}
           />
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label>Адрес (используйте \n для новой строки)</label>
+            <label>Address (use \n for new line)</label>
             <textarea
               value={settings.company_address}
               onChange={e => setSettings(prev => ({ ...prev, company_address: e.target.value }))}
@@ -2733,7 +2733,7 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
             />
           </div>
           <div className="form-group">
-            <label>Телефон</label>
+            <label>Phone</label>
             <input
               type="tel"
               value={settings.company_phone}
@@ -2744,12 +2744,29 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
         </div>
       </div>
 
+      {/* Whitepaper Link */}
+      <div className="footer-admin-section">
+        <h3>📄 Whitepaper Link</h3>
+        <div className="form-group">
+          <label>Whitepaper URL</label>
+          <input
+            type="url"
+            value={settings.whitepaper_url}
+            onChange={e => setSettings(prev => ({ ...prev, whitepaper_url: e.target.value }))}
+            placeholder="https://docs.fomo.io/whitepaper.pdf"
+          />
+        </div>
+        <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
+          💡 This link will be displayed in the "About" section as "Whitepaper" button
+        </p>
+      </div>
+
       {/* CTA Button */}
       <div className="footer-admin-section">
-        <h3>🚀 Кнопка призыва к действию (GET STARTED)</h3>
+        <h3>🚀 Call to Action Button (GET STARTED)</h3>
         <div className="form-row">
           <div className="form-group">
-            <label>Текст кнопки</label>
+            <label>Button Text</label>
             <input
               type="text"
               value={settings.cta_button_text}
@@ -2758,23 +2775,23 @@ const FooterAdminContent = ({ footerSettings, onFooterUpdate }) => {
             />
           </div>
           <div className="form-group">
-            <label>URL кнопки</label>
+            <label>Button URL</label>
             <input
               type="url"
               value={settings.cta_button_url}
               onChange={e => setSettings(prev => ({ ...prev, cta_button_url: e.target.value }))}
-              placeholder="https://app.fomo.io или #"
+              placeholder="https://app.fomo.io or #"
             />
           </div>
         </div>
         <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
-          💡 Эта кнопка будет использоваться для перехода на основной сайт/приложение
+          💡 This button will be used to navigate to the main website/app
         </p>
       </div>
 
       {/* Social Media */}
       <div className="footer-admin-section">
-        <h3>📱 Социальные сети</h3>
+        <h3>📱 Social Media</h3>
         <div className="social-media-list">
           {settings.social_media.map((social, index) => (
             <div key={index} className="social-media-item">

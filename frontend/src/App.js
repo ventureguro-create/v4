@@ -3700,12 +3700,12 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
         
         {settings.subscribe_enabled && (
           <div className="form-group">
-            <label>Заголовок блока подписки ({activeLang === 'ru' ? 'RU' : 'EN'})</label>
+            <label>Subscribe Block Title</label>
             <input
               type="text"
-              value={settings[`subscribe_title${langSuffix}`] || ''}
-              onChange={e => handleChange(`subscribe_title${langSuffix}`, e.target.value)}
-              placeholder={activeLang === 'ru' ? 'Будь в курсе' : 'Stay Updated'}
+              value={settings.subscribe_title_en || ''}
+              onChange={e => handleChange('subscribe_title_en', e.target.value)}
+              placeholder="Stay Updated"
             />
           </div>
         )}
@@ -3713,7 +3713,7 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
 
       <div className="community-admin-save" style={{ marginTop: '24px' }}>
         <button onClick={handleSave} className="btn-primary btn-large" disabled={saving}>
-          {saving ? '💾 Сохранение...' : '💾 Сохранить настройки Community'}
+          {saving ? '💾 Saving...' : '💾 Save Community Settings'}
         </button>
       </div>
     </div>
@@ -3725,29 +3725,29 @@ const CommunityAdminContent = ({ communitySettings, onCommunityUpdate }) => {
 
 // ==================== EXTENDED ANIMATION LIBRARY ====================
 const ANIMATION_TYPES_LEVELS = [
-  { value: 'stellar', label: '⭐ Stellar (Звезда)', color: '#64748b', description: 'Вращающаяся звезда' },
-  { value: 'cosmic', label: '🚀 Cosmic (Ракета)', color: '#3b82f6', description: 'Летящая ракета' },
-  { value: 'galactic', label: '🌀 Galactic (Орбиты)', color: '#a855f7', description: 'Орбитальные кольца' },
-  { value: 'celestial', label: '☀️ Celestial (Солнце)', color: '#f59e0b', description: 'Лучистое солнце' },
-  { value: 'astral', label: '🪐 Astral (Планета)', color: '#ec4899', description: 'Планета с кольцами' },
-  { value: 'universal', label: '👑 Universal (Корона)', color: '#10b981', description: 'Космическая корона' },
-  { value: 'pulse', label: '💫 Pulse (Пульс)', color: '#06b6d4', description: 'Пульсирующий круг' },
-  { value: 'nebula', label: '🌌 Nebula (Туманность)', color: '#8b5cf6', description: 'Космическая туманность' },
-  { value: 'supernova', label: '💥 Supernova (Взрыв)', color: '#ef4444', description: 'Взрыв сверхновой' },
-  { value: 'blackhole', label: '⚫ Black Hole (Чёрная дыра)', color: '#1e293b', description: 'Вращающаяся чёрная дыра' },
-  { value: 'aurora', label: '🌈 Aurora (Сияние)', color: '#22c55e', description: 'Северное сияние' },
-  { value: 'meteor', label: '☄️ Meteor (Метеор)', color: '#f97316', description: 'Падающий метеор' },
-  { value: 'constellation', label: '✨ Constellation (Созвездие)', color: '#a3e635', description: 'Мерцающее созвездие' },
-  { value: 'vortex', label: '🌊 Vortex (Вихрь)', color: '#0ea5e9', description: 'Водоворот энергии' },
-  { value: 'crystal', label: '💎 Crystal (Кристалл)', color: '#e879f9', description: 'Светящийся кристалл' }
+  { value: 'stellar', label: '⭐ Stellar (Star)', color: '#64748b', description: 'Rotating star' },
+  { value: 'cosmic', label: '🚀 Cosmic (Rocket)', color: '#3b82f6', description: 'Flying rocket' },
+  { value: 'galactic', label: '🌀 Galactic (Orbits)', color: '#a855f7', description: 'Orbital rings' },
+  { value: 'celestial', label: '☀️ Celestial (Sun)', color: '#f59e0b', description: 'Radiant sun' },
+  { value: 'astral', label: '🪐 Astral (Planet)', color: '#ec4899', description: 'Planet with rings' },
+  { value: 'universal', label: '👑 Universal (Crown)', color: '#10b981', description: 'Cosmic crown' },
+  { value: 'pulse', label: '💫 Pulse', color: '#06b6d4', description: 'Pulsing circle' },
+  { value: 'nebula', label: '🌌 Nebula', color: '#8b5cf6', description: 'Cosmic nebula' },
+  { value: 'supernova', label: '💥 Supernova', color: '#ef4444', description: 'Supernova explosion' },
+  { value: 'blackhole', label: '⚫ Black Hole', color: '#1e293b', description: 'Rotating black hole' },
+  { value: 'aurora', label: '🌈 Aurora', color: '#22c55e', description: 'Northern lights' },
+  { value: 'meteor', label: '☄️ Meteor', color: '#f97316', description: 'Falling meteor' },
+  { value: 'constellation', label: '✨ Constellation', color: '#a3e635', description: 'Twinkling constellation' },
+  { value: 'vortex', label: '🌊 Vortex', color: '#0ea5e9', description: 'Energy vortex' },
+  { value: 'crystal', label: '💎 Crystal', color: '#e879f9', description: 'Glowing crystal' }
 ];
 
 const ANIMATION_TYPES_BADGES = [
-  { value: 'pioneer', label: '🛡️ Pioneer (Щит)', color: '#3b82f6', description: 'Щит первопроходца' },
-  { value: 'onboarding', label: '📍 Onboarding (Маркер)', color: '#f59e0b', description: 'Маркер достижения' },
-  { value: 'reviewer', label: '🔍 Reviewer (Лупа)', color: '#a855f7', description: 'Лупа эксперта' },
-  { value: 'predictor', label: '🎯 Predictor (Мишень)', color: '#ef4444', description: 'Точная мишень' },
-  { value: 'streak', label: '🔥 Streak (Огонь)', color: '#f97316', description: 'Пылающий огонь' },
+  { value: 'pioneer', label: '🛡️ Pioneer (Shield)', color: '#3b82f6', description: 'Pioneer shield' },
+  { value: 'onboarding', label: '📍 Onboarding (Marker)', color: '#f59e0b', description: 'Achievement marker' },
+  { value: 'reviewer', label: '🔍 Reviewer (Magnifier)', color: '#a855f7', description: 'Expert magnifier' },
+  { value: 'predictor', label: '🎯 Predictor (Target)', color: '#ef4444', description: 'Precise target' },
+  { value: 'streak', label: '🔥 Streak (Fire)', color: '#f97316', description: 'Blazing fire' },
   { value: 'maker', label: '💠 Maker (Ромб)', color: '#10b981', description: 'Вращающийся ромб' },
   { value: 'p2p', label: '🔗 P2P (Связь)', color: '#6366f1', description: 'Связанные точки' },
   { value: 'community', label: '⭐ Community (Звезда)', color: '#ec4899', description: 'Звезда сообщества' },

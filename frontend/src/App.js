@@ -6119,16 +6119,32 @@ const PlatformOverview = ({ platformSettings }) => {
             <div className="modules-section">
               <span className="modules-title">{language === 'ru' ? 'Наши сервисы' : 'Our Services'}</span>
               <div className="modules-grid">
-                {serviceModules.map((module, i) => (
-                  <div key={i} className={`module-card module-${module.color}`}>
-                    <span className="module-icon">{module.icon}</span>
-                    <div className="module-info">
-                      <span className="module-name">{module[`name${langSuffix}`] || module.name_ru || module.name}</span>
-                      <span className="module-count">{module.count}</span>
-                      <span className="module-label">{module[`label${langSuffix}`] || module.label_ru || module.label}</span>
+                {serviceModules.map((module, i) => {
+                  const IconComponent = getServiceIcon(module.name_ru || module.name || module.name_en);
+                  const moduleColor = {
+                    emerald: '#10b981',
+                    blue: '#3b82f6',
+                    purple: '#8b5cf6',
+                    orange: '#f97316',
+                    pink: '#ec4899',
+                    cyan: '#06b6d4',
+                    green: '#22c55e',
+                    violet: '#7c3aed'
+                  }[module.color] || '#10b981';
+                  
+                  return (
+                    <div key={i} className={`module-card module-${module.color}`}>
+                      <div className="module-icon-svg">
+                        <IconComponent color={moduleColor} />
+                      </div>
+                      <div className="module-info">
+                        <span className="module-name">{module[`name${langSuffix}`] || module.name_ru || module.name}</span>
+                        <span className="module-count">{module.count}</span>
+                        <span className="module-label">{module[`label${langSuffix}`] || module.label_ru || module.label}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

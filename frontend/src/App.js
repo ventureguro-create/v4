@@ -1877,35 +1877,15 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
     <div className="admin-content platform-admin">
       {message && <div className="admin-message">{message}</div>}
       
-      {/* Language Toggle */}
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-        <button 
-          onClick={() => setActiveLang('ru')} 
-          style={{
-            padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer',
-            background: activeLang === 'ru' ? '#10b981' : '#e5e7eb',
-            color: activeLang === 'ru' ? 'white' : '#374151', fontWeight: '600'
-          }}
-        >🇷🇺 Русский</button>
-        <button 
-          onClick={() => setActiveLang('en')} 
-          style={{
-            padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer',
-            background: activeLang === 'en' ? '#10b981' : '#e5e7eb',
-            color: activeLang === 'en' ? 'white' : '#374151', fontWeight: '600'
-          }}
-        >🇬🇧 English</button>
-      </div>
-      
-      {/* Section Texts */}
+      {/* Section Texts - English Only */}
       <div className="platform-section">
-        <h3>📝 Тексты секции ({activeLang === 'ru' ? 'RU' : 'EN'})</h3>
+        <h3>📝 Section Texts</h3>
         <div className="form-group">
-          <label>Бейдж</label>
+          <label>Badge</label>
           <input
             type="text"
-            value={settings[`section_badge${langSuffix}`] || settings.section_badge || ''}
-            onChange={e => setSettings(prev => ({ ...prev, [`section_badge${langSuffix}`]: e.target.value }))}
+            value={settings.section_badge_en || settings.section_badge || ''}
+            onChange={e => setSettings(prev => ({ ...prev, section_badge_en: e.target.value, section_badge_ru: e.target.value }))}
           />
         </div>
         <div className="form-group">

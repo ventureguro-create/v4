@@ -2018,20 +2018,20 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
                 type="text"
                 value={stat.value || ''}
                 onChange={e => handleBottomStatChange(index, 'value', e.target.value)}
-                placeholder="Значение (70%)"
+                placeholder="Value (70%)"
                 className="bottom-stat-value-input"
               />
               <input
                 type="text"
-                value={stat[`label${langSuffix}`] || stat.label || ''}
-                onChange={e => handleBottomStatChange(index, `label${langSuffix}`, e.target.value)}
-                placeholder="Лейбл"
+                value={stat.label_en || stat.label || ''}
+                onChange={e => { handleBottomStatChange(index, 'label_en', e.target.value); handleBottomStatChange(index, 'label_ru', e.target.value); }}
+                placeholder="Label"
               />
               <input
                 type="text"
-                value={stat[`description${langSuffix}`] || stat.description || ''}
-                onChange={e => handleBottomStatChange(index, `description${langSuffix}`, e.target.value)}
-                placeholder="Описание"
+                value={stat.description_en || stat.description || ''}
+                onChange={e => { handleBottomStatChange(index, 'description_en', e.target.value); handleBottomStatChange(index, 'description_ru', e.target.value); }}
+                placeholder="Description"
               />
             </div>
           ))}
@@ -2041,7 +2041,7 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
       {/* Save Button */}
       <div className="platform-save">
         <button onClick={handleSave} className="btn-primary btn-large" disabled={saving}>
-          {saving ? '💾 Сохранение...' : '💾 Сохранить все настройки'}
+          {saving ? '💾 Saving...' : '💾 Save All Settings'}
         </button>
       </div>
     </div>
@@ -2051,16 +2051,12 @@ const PlatformAdminContent = ({ platformSettings, onPlatformUpdate }) => {
 // ==================== ROADMAP ADMIN CONTENT ====================
 const RoadmapAdminContent = ({ roadmapData, onRoadmapUpdate }) => {
   const [settings, setSettings] = useState({
-    section_badge_ru: 'Наш Прогресс',
     section_badge_en: 'Our Progress',
-    section_title_ru: 'Дорожная карта проекта',
     section_title_en: 'Project Roadmap',
-    section_subtitle_ru: 'Отслеживайте наш прогресс разработки в реальном времени',
     section_subtitle_en: 'Track our development progress in real-time',
     tasks: []
   });
   const [newTask, setNewTask] = useState({ 
-    name_ru: '', 
     name_en: '', 
     status: 'progress', 
     category: 'Development' 
@@ -2071,11 +2067,8 @@ const RoadmapAdminContent = ({ roadmapData, onRoadmapUpdate }) => {
   useEffect(() => {
     if (roadmapData) {
       setSettings({
-        section_badge_ru: roadmapData.section_badge_ru || 'Наш Прогресс',
         section_badge_en: roadmapData.section_badge_en || 'Our Progress',
-        section_title_ru: roadmapData.section_title_ru || 'Дорожная карта проекта',
         section_title_en: roadmapData.section_title_en || 'Project Roadmap',
-        section_subtitle_ru: roadmapData.section_subtitle_ru || 'Отслеживайте наш прогресс разработки в реальном времени',
         section_subtitle_en: roadmapData.section_subtitle_en || 'Track our development progress in real-time',
         tasks: roadmapData.tasks || []
       });

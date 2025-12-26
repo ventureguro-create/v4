@@ -1494,11 +1494,8 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
 
   const resetForm = () => {
     setFormData({
-      name_ru: '',
       name_en: '',
-      position_ru: '',
       position_en: '',
-      bio_ru: '',
       bio_en: '',
       image_url: '',
       social_links: { twitter: '', linkedin: '', telegram: '', instagram: '', tiktok: '', website: '' },
@@ -1513,12 +1510,9 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
   const handleEdit = (member) => {
     setEditingMember(member);
     setFormData({
-      name_ru: member.name_ru || '',
-      name_en: member.name_en || '',
-      position_ru: member.position_ru || '',
-      position_en: member.position_en || '',
-      bio_ru: member.bio_ru || '',
-      bio_en: member.bio_en || '',
+      name_en: member.name_en || member.name_ru || '',
+      position_en: member.position_en || member.position_ru || '',
+      bio_en: member.bio_en || member.bio_ru || '',
       image_url: member.image_url,
       social_links: member.social_links || { twitter: '', linkedin: '', telegram: '', instagram: '', tiktok: '', website: '' },
       displayed_socials: member.displayed_socials || [],
@@ -1559,7 +1553,7 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
         if (newDisplayed.length < 4) {
           newDisplayed.push(socialKey);
         } else {
-          setError('Можно выбрать максимум 4 соцсети');
+          setError('Maximum 4 social links allowed');
           setTimeout(() => setError(''), 3000);
           return prev;
         }
@@ -1571,17 +1565,24 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name_ru || !formData.name_en || !formData.position_ru || !formData.position_en || 
-        !formData.bio_ru || !formData.bio_en || !formData.image_url) {
-      setError('Все основные поля обязательны (RU и EN)');
+    if (!formData.name_en || !formData.position_en || !formData.bio_en || !formData.image_url) {
+      setError('All fields are required');
       return;
     }
+    
+    // Copy EN to RU for backend compatibility
+    const submitData = {
+      ...formData,
+      name_ru: formData.name_en,
+      position_ru: formData.position_en,
+      bio_ru: formData.bio_en
+    };
 
     try {
       if (editingMember) {
-        await axios.put(`${API}/team-members/${editingMember.id}`, formData);
+        await axios.put(`${API}/team-members/${editingMember.id}`, submitData);
       } else {
-        await axios.post(`${API}/team-members`, formData);
+        await axios.post(`${API}/team-members`, submitData);
       }
       onTeamUpdate();
       resetForm();
@@ -1591,7 +1592,7 @@ const TeamAdminContent = ({ team, onTeamUpdate }) => {
   };
 
   const handleDelete = async (memberId) => {
-    if (!window.confirm('Удалить этого члена команды?')) return;
+    if (!window.confirm('Delete this team member?')) return;
     try {
       await axios.delete(`${API}/team-members/${memberId}`);
       onTeamUpdate();

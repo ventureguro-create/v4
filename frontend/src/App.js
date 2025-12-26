@@ -5012,17 +5012,6 @@ const Navigation = () => {
 
           {/* Right Side - Action Buttons */}
           <div className="hidden lg:flex items-center gap-3 z-10">
-            {/* Language Switcher */}
-            <button 
-              onClick={toggleLanguage}
-              className="language-switcher"
-              title={language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
-            >
-              <span className={language === 'ru' ? 'active' : ''}>RU</span>
-              <span className="separator">/</span>
-              <span className={language === 'en' ? 'active' : ''}>EN</span>
-            </button>
-
             {/* Separated Action Buttons */}
             <div className="action-buttons-group">
               <a href="#crypto" className="action-btn action-btn-outline">Crypto</a>

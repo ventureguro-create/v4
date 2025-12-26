@@ -27,22 +27,23 @@ async def migrate_roadmap_tasks():
     # Check if tasks already exist
     existing = await db.roadmap_tasks.count_documents({})
     if existing > 0:
-        print(f"  ℹ️  Found {existing} existing tasks, skipping...")
-        return
+        print(f"  ⚠️  Found {existing} existing tasks, updating them...")
+        # Delete old tasks
+        await db.roadmap_tasks.delete_many({})
     
     default_tasks = [
-        {"id": str(uuid4()), "name": "Platform Architecture", "status": "done", "category": "Development", "order": 1},
-        {"id": str(uuid4()), "name": "Core Team Formation", "status": "done", "category": "Team", "order": 2},
-        {"id": str(uuid4()), "name": "Alpha Version Launch", "status": "done", "category": "Development", "order": 3},
-        {"id": str(uuid4()), "name": "Community Building", "status": "done", "category": "Marketing", "order": 4},
-        {"id": str(uuid4()), "name": "Beta Version v1.0", "status": "done", "category": "Development", "order": 5},
-        {"id": str(uuid4()), "name": "NFT Box 666 Mint", "status": "done", "category": "NFT", "order": 6},
-        {"id": str(uuid4()), "name": "Wallet Integration", "status": "done", "category": "Development", "order": 7},
-        {"id": str(uuid4()), "name": "Analytics Dashboard", "status": "done", "category": "Development", "order": 8},
-        {"id": str(uuid4()), "name": "Beta Version v1.1", "status": "progress", "category": "Development", "order": 9},
-        {"id": str(uuid4()), "name": "OTC Marketplace", "status": "progress", "category": "Development", "order": 10},
-        {"id": str(uuid4()), "name": "Mobile App Development", "status": "progress", "category": "Development", "order": 11},
-        {"id": str(uuid4()), "name": "Partnership Programs", "status": "progress", "category": "Business", "order": 12},
+        {"id": str(uuid4()), "name_ru": "Архитектура платформы", "name_en": "Platform Architecture", "status": "done", "category": "Development", "order": 1},
+        {"id": str(uuid4()), "name_ru": "Формирование команды", "name_en": "Core Team Formation", "status": "done", "category": "Team", "order": 2},
+        {"id": str(uuid4()), "name_ru": "Запуск Alpha версии", "name_en": "Alpha Version Launch", "status": "done", "category": "Development", "order": 3},
+        {"id": str(uuid4()), "name_ru": "Создание сообщества", "name_en": "Community Building", "status": "done", "category": "Marketing", "order": 4},
+        {"id": str(uuid4()), "name_ru": "Beta версия v1.0", "name_en": "Beta Version v1.0", "status": "done", "category": "Development", "order": 5},
+        {"id": str(uuid4()), "name_ru": "Минт NFT Box 666", "name_en": "NFT Box 666 Mint", "status": "done", "category": "NFT", "order": 6},
+        {"id": str(uuid4()), "name_ru": "Интеграция кошелька", "name_en": "Wallet Integration", "status": "done", "category": "Development", "order": 7},
+        {"id": str(uuid4()), "name_ru": "Панель аналитики", "name_en": "Analytics Dashboard", "status": "done", "category": "Development", "order": 8},
+        {"id": str(uuid4()), "name_ru": "Beta версия v1.1", "name_en": "Beta Version v1.1", "status": "progress", "category": "Development", "order": 9},
+        {"id": str(uuid4()), "name_ru": "OTC Маркетплейс", "name_en": "OTC Marketplace", "status": "progress", "category": "Development", "order": 10},
+        {"id": str(uuid4()), "name_ru": "Разработка мобильного приложения", "name_en": "Mobile App Development", "status": "progress", "category": "Development", "order": 11},
+        {"id": str(uuid4()), "name_ru": "Партнерские программы", "name_en": "Partnership Programs", "status": "progress", "category": "Business", "order": 12},
     ]
     
     for task in default_tasks:

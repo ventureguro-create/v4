@@ -6281,3 +6281,34 @@ html { scroll-behavior: smooth; }
   font-weight: 500;
   margin-left: 12px;
 }
+
+/* Whitepaper Link Button */
+.whitepaper-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.whitepaper-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.whitepaper-link:hover::before {
+  left: 100%;
+}
+
+.whitepaper-icon {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.5)); }
+  50% { filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8)); }
+}
+

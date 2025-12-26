@@ -17,8 +17,11 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 # MongoDB connection
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+DB_NAME = os.environ.get('DB_NAME', 'test_database')
 client = AsyncIOMotorClient(MONGO_URL)
-db = client.fomo_db
+db = client[DB_NAME]
+
+print(f"📊 Using database: {DB_NAME}\n")
 
 async def migrate_roadmap_tasks():
     """Migrate roadmap tasks"""

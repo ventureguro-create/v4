@@ -8020,7 +8020,7 @@ const AdminPage = () => {
           }}>F</div>
           <div>
             <h1 style={{ fontSize: '20px', fontWeight: '700', color: '#1f2937', margin: 0 }}>FOMO Admin Panel</h1>
-            <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>Управление контентом сайта</p>
+            <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>Website content management</p>
           </div>
         </div>
         <div style={{ display: 'flex', gap: '12px' }}>
@@ -8033,7 +8033,7 @@ const AdminPage = () => {
             fontSize: '14px',
             fontWeight: '500'
           }}>
-            👁️ Открыть сайт
+            👁️ Open Site
           </a>
           <button onClick={handleLogout} style={{
             padding: '10px 20px',
@@ -8045,7 +8045,7 @@ const AdminPage = () => {
             fontSize: '14px',
             fontWeight: '500'
           }}>
-            🚪 Выйти
+            🚪 Logout
           </button>
         </div>
       </header>

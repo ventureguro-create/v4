@@ -6000,7 +6000,6 @@ const PlatformOverview = ({ platformSettings }) => {
                   className="h-12 w-auto"
                   style={{ maxHeight: '48px' }}
                 />
-                <div className="brand-tagline-only">fomo.cx</div>
               </div>
               <div className="dashboard-meta">
                 <span className="meta-item">👥 {settings.community?.value || '45.6K'}</span>
